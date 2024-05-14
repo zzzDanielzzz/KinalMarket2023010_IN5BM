@@ -1,0 +1,45 @@
+.menu-bar .menu .label {
+    -fx-text-fill: white;
+}
+.menu-bar .menu .menu-item .label {
+    -fx-text-fill: black; 
+}
+.menu-bar .menu .menu-item .label {
+    -fx-text-fill: #4EB1D9;
+    -fx-font-size: 14px;
+}
+.menu-bar .menu .label {
+    -fx-font-size: 12px;
+    -fx-graphic-text-gap: 5px;
+}
+
+.button {
+    -fx-background-color: #4EB1D9; 
+    -fx-text-fill: white; 
+    -fx-font-size: 14px; 
+    -fx-font-weight: bold; 
+    -fx-padding: 8px 16px; 
+    -fx-border-radius: 4px; 
+    -fx-background-radius: 4px; 
+}
+
+
+.button:pressed {
+    -fx-background-color: #45a5ce;
+}
+
+
+.button:hover {
+    -fx-background-color: #5dc5f2; 
+}
+
+.table-view .column-header,
+.table-view .column-background .filter {
+    -fx-cell-size: 22px; 
+    -fx-background-color: #45a5ce; 
+}
+
+
+.table-row-cell:selected {
+    -fx-background: #F2CB57;
+}

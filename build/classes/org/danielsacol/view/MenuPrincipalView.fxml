@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.danielsacol.controller.MenuPrincipalController">
+   <children>
+      <ImageView fitHeight="512.0" fitWidth="904.0" layoutX="-50.0" layoutY="-9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/FondoP.png" />
+         </image>
+      </ImageView>
+      <MenuBar id="menubar" layoutX="-1.0" layoutY="-1.0" prefHeight="36.0" prefWidth="317.0" style="-fx-background-color: #F27B13; -fx-background-radius: 0 0 10 0; -fx-border-color: white; -fx-border-radius: 0 0 10 0;" stylesheets="@../resource/KinalMarketCSS.css">
+        <menus>
+          <Menu id="menu" mnemonicParsing="false" styleClass="menu" text="Modulos">
+            <items>
+              <MenuItem fx:id="btnMenuCompras" mnemonicParsing="false" onAction="#handleButtonAction" text="Compras" />
+                  <MenuItem fx:id="btnMenuProveedores" mnemonicParsing="false" onAction="#handleButtonAction" text="Proveedores" />
+                  <MenuItem fx:id="btnMenuClientes" mnemonicParsing="false" onAction="#handleButtonAction" text="Clientes" />
+                  <MenuItem fx:id="btnMenuTipoProducto" mnemonicParsing="false" onAction="#handleButtonAction" text="Tipo de producto" />
+                  <MenuItem fx:id="btnMenuCargoEmpleado" mnemonicParsing="false" onAction="#handleButtonAction" text="Cargo Empleado" />
+                  <MenuItem fx:id="btnMenuProductos" mnemonicParsing="false" onAction="#handleButtonAction" text="Productos" />
+            </items>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/ModuloIcono.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Reporte">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Ventas" />
+                  <MenuItem mnemonicParsing="false" text="Inventario" />
+                  <MenuItem mnemonicParsing="false" text="Planillas" />
+            </items>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/IconoReporte.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Acerca de">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Ayuda" />
+                  <MenuItem fx:id="btnProgramador" mnemonicParsing="false" onAction="#handleButtonAction" text="Programador" />
+            </items>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/AcercaDeIcono.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+          </Menu>
+        </menus>
+         <styleClass>
+            <String fx:value="menu-item" />
+            <String fx:value="menu-bar" />
+         </styleClass>
+      </MenuBar>
+      <Button layoutX="634.0" layoutY="348.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="144.0" stylesheets="@../resource/KinalMarketCSS.css" text="Horarios" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button layoutX="482.0" layoutY="348.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="144.0" stylesheets="@../resource/KinalMarketCSS.css" text="Ubicaciones" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <ImageView fitHeight="275.0" fitWidth="257.0" layoutX="491.0" layoutY="91.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Orange%20Blue%20Simple%20Flat%20Illustrative%20Supermarket%20Logo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="186.0" layoutY="418.0" text="Tenemos las mejores ofertas!!!" textFill="#f227ab">
+         <font>
+            <Font name="Eras Bold ITC" size="36.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="439.0" fitWidth="465.0" layoutX="31.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/My%20first%20design%202.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
