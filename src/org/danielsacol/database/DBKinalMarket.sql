@@ -399,10 +399,7 @@ END$$
 DELIMITER ;
  
 CALL sp_agregarProducto('P001', 'Arroz', 5.99, 68.99, 129.99, 'arroz.jpg', 100, 1, 1);
-CALL sp_agregarProducto('P002', 'Frijoles', 3.49, 39.99, 74.99, 'frijoles.jpg', 150, 2, 2);
-CALL sp_agregarProducto('P003', 'Aceite', 8.99, 102.99, 194.99, 'aceite.jpg', 80, 3, 2);
-CALL sp_agregarProducto('P004', 'Leche Entera', 2.99, 32.99, 62.99, 'leche.jpg', 120, 3, 4);
-CALL sp_agregarProducto('P005', 'Azúcar', 4.49, 51.99, 98.99, 'azucar.jpg', 90, 4, 5);
+
  
 Delimiter $$
 create procedure sp_listarProductos()

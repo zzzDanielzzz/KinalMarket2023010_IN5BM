@@ -9,6 +9,7 @@ package org.danielsacol.bean;
  * @author compu
  */
 public class Proveedores {
+
     private int codigoProveedor;
     private String NITProveedor;
     private String nombresProveedor;
@@ -31,8 +32,6 @@ public class Proveedores {
         this.contactoPrincipal = contactoPrincipal;
         this.paginaWeb = paginaWeb;
     }
-    
-    
 
     public int getCodigoProveedor() {
         return codigoProveedor;
@@ -100,9 +99,7 @@ public class Proveedores {
 
     @Override
     public String toString() {
-        return getNITProveedor();
+        return getNITProveedor() + "    |   " + getNombresProveedor();
     }
-    
-    
-            
+
 }

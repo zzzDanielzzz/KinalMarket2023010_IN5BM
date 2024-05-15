@@ -43,7 +43,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button fx:id="btnAgregar" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" stylesheets="@../resource/KinalMarketCSS.css" text="Agregar">
+            <Button fx:id="btnAgregar" mnemonicParsing="false" onAction="#agregar" prefHeight="50.0" prefWidth="130.0" stylesheets="@../resource/KinalMarketCSS.css" text="Agregar">
                <graphic>
                   <ImageView fx:id="imgAgregar" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -85,7 +85,7 @@
             </Button>
          </children>
       </GridPane>
-      <TableView fx:id="tblProductos" layoutX="196.0" layoutY="272.0" prefHeight="318.0" prefWidth="929.0" stylesheets="@../resource/KinalMarketCSS.css">
+      <TableView fx:id="tblProductos" layoutX="196.0" layoutY="272.0" onMouseClicked="#seleccionarElementos" prefHeight="318.0" prefWidth="929.0" stylesheets="@../resource/KinalMarketCSS.css">
          <columns>
             <TableColumn fx:id="colCodProd" prefWidth="95.33334350585938" text="codigoProducto" />
             <TableColumn fx:id="colDescProd" prefWidth="133.33334350585938" text="descripcionProducto" />
@@ -145,7 +145,7 @@
             <ComboBox fx:id="combCodProveedor" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
       </GridPane>
-      <Button fx:id="btnHomeProductos" layoutX="22.0" layoutY="20.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="56.0" stylesheets="@../resource/KinalMarketCSS.css">
+      <Button fx:id="btnHomeProductos" layoutX="22.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="43.0" prefWidth="56.0" stylesheets="@../resource/KinalMarketCSS.css">
          <graphic>
             <ImageView fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                <image>

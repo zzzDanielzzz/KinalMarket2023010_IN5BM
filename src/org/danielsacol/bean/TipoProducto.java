@@ -10,7 +10,7 @@ package org.danielsacol.bean;
  * @author informatica
  */
 public class TipoProducto {
-    
+
     private int codigoTipoProducto;
     private String descripcion;
 
@@ -37,6 +37,10 @@ public class TipoProducto {
     public void setCodigoTipoProducto(int codigoTipoProducto) {
         this.codigoTipoProducto = codigoTipoProducto;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getCodigoTipoProducto() + "    |   " + getDescripcion();
+    }
+
 }
