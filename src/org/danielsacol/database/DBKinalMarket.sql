@@ -63,6 +63,16 @@ create table Productos(
 		references TipoProducto(codigoTipoProducto)    
 );
 
+create table TelefonoProveedor(
+	codigoTelefonoProveedor int,
+    numeroPrincipal varchar(8),
+    numeroSecundario varchar(8),
+    observaciones varchar(45),
+    codigoProveedor int,
+    constraint FK_TelefonoProveedor_Proveedores foreign key Proveedores(codigoProveedor)
+		references Proveedores(codigoProveedor)
+);
+
 delimiter $$
 
 create procedure sp_agregarCliente(in codCli int, in nitCli varchar(10), in nombreCli varchar(50), in apellidosCli varchar(50),in direccionCli varchar(150), in telefonoCli varchar(45), in correoCli varchar(45)
@@ -354,7 +364,7 @@ begin
 	TP.codigoTipoProducto,
     TP.descripcion
     from TipoProducto TP
-    where TipoProducto.codigoTipoProducto=codTipoProducto;
+    where codigoTipoProducto=codTipoProducto;
 end $$
 delimiter ;
 
@@ -458,4 +468,50 @@ END $$
  
 DELIMITER ;
  
-call sp_eliminarProducto('P001');
+
+-- ------------------------------------------ TELEFONO PROVEEDOR------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_agregarTelefonoProveedor(in codTelPro int, in numPrin varchar(8), in numSec varchar(8), in obs varchar(45), in codPro int)
+begin
+    insert into TelefonoProveedor (codigoTelefonoProveedor, numeroPrincipal, numeroSecundario, observaciones, codigoProveedor)
+    values (codTelPro, numPrin, numSec, obs, codPro);
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_listarTelefonoProveedor()
+begin 
+    select t.codigoTelefonoProveedor, t.numeroPrincipal, t.numeroSecundario, t.observaciones, t.codigoProveedor from TelefonoProveedor t;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarTelefonoProveedor(in codPro int)
+begin
+    select t.codigoTelefonoProveedor, t.numeroPrincipal, t.numeroSecundario, t.observaciones, t.codigoProveedor from TelefonoProveedor t where t.codigoProveedor = codPro;
+end$$
+
+delimiter ;
+delimiter $$
+
+create procedure sp_actualizarTelefonoProveedor(in codTelPro int, in numPrin varchar(8), in numSec varchar(8), in obs varchar(45), in codPro int)
+begin
+    update TelefonoProveedor set numeroPrincipal = numPrin, numeroSecundario = numSec, observaciones = obs, codigoProveedor = codPro where codigoTelefonoProveedor = codTelPro;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarTelefonoProveedor(in codTelPro int)
+begin
+    delete from TelefonoProveedor where codigoTelefonoProveedor = codTelPro;
+end$$
+
+delimiter ;

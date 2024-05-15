@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package org.danielsacol.controller;
 
 import java.net.URL;
@@ -24,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javax.swing.JOptionPane;
 import org.danielsacol.bean.Productos;
 import org.danielsacol.bean.Proveedores;
 import org.danielsacol.bean.TipoProducto;
@@ -200,8 +197,50 @@ public class ProductosController implements Initializable {
         txtPrecMay.setText(String.valueOf(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getPrecioMayor()));
         txtImgProd.setText((((Productos) tblProductos.getSelectionModel().getSelectedItem()).getImagenProducto()));
         txtExist.setText(String.valueOf(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getExistencia()));
-        combCodProducto.setValue(String.valueOf(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
-        combCodProveedor.setValue(String.valueOf(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
+        //combCodProducto.setValue(String.valueOf(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
+        //combCodProveedor.setValue(String.valueOf(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
+        combCodProducto.getSelectionModel().select(buscarTipoProducto(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
+        combCodProveedor.getSelectionModel().select(buscarProveedor(((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
+    }
+
+    public TipoProducto buscarTipoProducto(int codigoTipoProducto) {
+        TipoProducto resultado = null;
+        try {
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_buscarTipoProducto(?)}");
+            procedimiento.setInt(1, codigoTipoProducto);
+            ResultSet registro = procedimiento.executeQuery();
+            while (registro.next()) {
+                resultado = new TipoProducto(registro.getInt("codigoTipoProducto"),
+                        registro.getString("descripcion"));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+
+    public Proveedores buscarProveedor(int codigoProveedor) {
+        Proveedores resultado = null;
+        try {
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_buscarProveedor(?)}");
+            procedimiento.setInt(1, codigoProveedor);
+            ResultSet registro = procedimiento.executeQuery();
+            while (registro.next()) {
+                resultado = new Proveedores(registro.getInt("codigoProveedor"),
+                        registro.getString("NITProveedor"),
+                        registro.getString("nombresProveedor"),
+                        registro.getString("apellidosProveedor"),
+                        registro.getString("direccionProveedor"),
+                        registro.getString("razonSocial"),
+                        registro.getString("contactoPrincipal"),
+                        registro.getString("paginaWeb"));
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultado;
     }
 
     public ObservableList<Productos> getProductos() {
@@ -321,6 +360,131 @@ public class ProductosController implements Initializable {
             listaProductos.add(registro);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void eliminar() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                desactivarControles();
+                limpiarControles();
+                btnAgregar.setText("Agregar");
+                btnEliminar.setText("Eliminar");
+                btnEditar.setDisable(false);
+                btnReportes.setDisable(false);
+                imgAgregar.setImage(new Image("/org/danielsacol/images/IconoAgregar.png"));
+                imgEliminar.setImage(new Image("/org/danielsacol/images/IconoEliminar.png"));
+                tipoDeOperaciones = operaciones.NINGUNO;
+                break;
+
+            default:
+                if (tblProductos.getSelectionModel().getSelectedItem() != null) {
+                    int respuesta = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion del registro", "Eliminar registro",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                    if (respuesta == JOptionPane.YES_NO_OPTION) {
+                        try {
+                            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarProducto(?)}");
+                            procedimiento.setString(1, ((Productos) tblProductos.getSelectionModel().getSelectedItem()).getCodigoProducto());
+                            procedimiento.execute();
+                            listaProductos.remove(tblProductos.getSelectionModel().getSelectedItem());
+                            limpiarControles();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+
+                        }
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe de seleccionar un registro para eliminar");
+                }
+        }
+    }
+
+    public void editar() {
+        switch (tipoDeOperaciones) {
+            case NINGUNO:
+                if (tblProductos.getSelectionModel().getSelectedItem() != null) {
+                    btnEditar.setText("Actualizar");
+                    btnReportes.setText("Cancelar");
+                    btnAgregar.setDisable(true);
+                    btnEliminar.setDisable(true);
+                    imgEditar.setImage(new Image("/org/danielsacol/images/IconoActualizar.png"));
+                    imgReportes.setImage(new Image("/org/danielsacol/images/IconoCancelar.png"));
+                    activarControles();
+                    txtCodProd.setEditable(false);
+                    tipoDeOperaciones = operaciones.ACTUALIZAR;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Debe de selecionar un registro para editar");
+                }
+                break;
+            case ACTUALIZAR:
+                try {
+                    actualizar();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                btnEditar.setText("Editar");
+                btnReportes.setText("Reporte");
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                imgEditar.setImage(new Image("/org/danielsacol/images/IconoEditar.png"));
+                imgReportes.setImage(new Image("/org/danielsacol/images/IconoReportes.png"));
+                desactivarControles();
+                limpiarControles();
+                tipoDeOperaciones = operaciones.NINGUNO;
+                cargarDatos();
+                break;
+        }
+    }
+
+    public void actualizar() {
+        try {
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarProducto(?, ?, ?, ?, ?, ?, ?, ?, ?)}");
+            Productos registro = (Productos) tblProductos.getSelectionModel().getSelectedItem();
+
+            registro.setDescripcionProducto(txtDescProd.getText());
+            registro.setPrecioUnitario(Double.parseDouble(txtPrecUnit.getText()));
+            registro.setPrecioDocena(Double.parseDouble(txtPrecDoc.getText()));
+            registro.setPrecioMayor(Double.parseDouble(txtPrecDoc.getText()));
+            registro.setImagenProducto(txtImgProd.getText());
+            registro.setExistencia(Integer.parseInt(txtExist.getText()));
+            registro.setCodigoProveedor(((Proveedores) combCodProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
+            registro.setCodigoTipoProducto((((TipoProducto) combCodProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
+
+            procedimiento.setString(1, registro.getCodigoProducto());
+            procedimiento.setString(2, registro.getDescripcionProducto());
+            procedimiento.setDouble(3, registro.getPrecioUnitario());
+            procedimiento.setDouble(4, registro.getPrecioDocena());
+            procedimiento.setDouble(5, registro.getPrecioMayor());
+            procedimiento.setString(6, registro.getImagenProducto());
+            procedimiento.setInt(7, registro.getExistencia());
+            procedimiento.setInt(8, registro.getCodigoTipoProducto());
+            procedimiento.setInt(9, registro.getCodigoProveedor());
+
+            procedimiento.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void reporte() {
+        switch (tipoDeOperaciones) {
+            case ACTUALIZAR:
+                btnReportes.setText("Reporte");
+                btnEditar.setText("Editar");
+                imgEditar.setImage(new Image("/org/danielsacol/images/IconoEditar.png"));
+                imgReportes.setImage(new Image("/org/danielsacol/images/IconoReportes.png"));
+                btnAgregar.setDisable(false);
+                btnEliminar.setDisable(false);
+                desactivarControles();
+                limpiarControles();
+                tipoDeOperaciones = ProductosController.operaciones.NINGUNO;
+                cargarDatos();
+            case NINGUNO:
+                break;
         }
     }
 

@@ -25,6 +25,7 @@ import org.danielsacol.controller.CargoEmpleadoController;
 import org.danielsacol.controller.ComprasController;
 import org.danielsacol.controller.ProductosController;
 import org.danielsacol.controller.ProveedorController;
+import org.danielsacol.controller.TelefonoProveedorController;
 import org.danielsacol.controller.TipoProductoController;
 
 /**
@@ -150,6 +151,16 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+        
+          public void menuTelefonoProveedorView() {
+        try {
+            TelefonoProveedorController telefonoProveedorView = (TelefonoProveedorController) cambiarEscena("TelefonoProveedorView.fxml", 944, 556);
+            telefonoProveedorView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }      
 
     /**
      * @param args the command line arguments

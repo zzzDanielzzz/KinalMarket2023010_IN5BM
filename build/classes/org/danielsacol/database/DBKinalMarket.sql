@@ -63,6 +63,16 @@ create table Productos(
 		references TipoProducto(codigoTipoProducto)    
 );
 
+create table TelefonoProveedor(
+	codigoTelefonoProveedor int,
+    numeroPrincipal varchar(8),
+    numeroSecundario varchar(8),
+    observaciones varchar(45),
+    codigoProveedor int,
+    constraint FK_TelefonoProveedor_Proveedores foreign key Proveedores(codigoProveedor)
+		references Proveedores(codigoProveedor)
+);
+
 delimiter $$
 
 create procedure sp_agregarCliente(in codCli int, in nitCli varchar(10), in nombreCli varchar(50), in apellidosCli varchar(50),in direccionCli varchar(150), in telefonoCli varchar(45), in correoCli varchar(45)
@@ -354,7 +364,7 @@ begin
 	TP.codigoTipoProducto,
     TP.descripcion
     from TipoProducto TP
-    where TipoProducto.codigoTipoProducto=codTipoProducto;
+    where codigoTipoProducto=codTipoProducto;
 end $$
 delimiter ;
 
@@ -399,10 +409,7 @@ END$$
 DELIMITER ;
  
 CALL sp_agregarProducto('P001', 'Arroz', 5.99, 68.99, 129.99, 'arroz.jpg', 100, 1, 1);
-CALL sp_agregarProducto('P002', 'Frijoles', 3.49, 39.99, 74.99, 'frijoles.jpg', 150, 2, 2);
-CALL sp_agregarProducto('P003', 'Aceite', 8.99, 102.99, 194.99, 'aceite.jpg', 80, 3, 2);
-CALL sp_agregarProducto('P004', 'Leche Entera', 2.99, 32.99, 62.99, 'leche.jpg', 120, 3, 4);
-CALL sp_agregarProducto('P005', 'Azúcar', 4.49, 51.99, 98.99, 'azucar.jpg', 90, 4, 5);
+
  
 Delimiter $$
 create procedure sp_listarProductos()

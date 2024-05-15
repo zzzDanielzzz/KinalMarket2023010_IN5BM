@@ -52,7 +52,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEliminar" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" stylesheets="@../resource/KinalMarketCSS.css" text="Eliminar" GridPane.rowIndex="1">
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminar" prefHeight="50.0" prefWidth="130.0" stylesheets="@../resource/KinalMarketCSS.css" text="Eliminar" GridPane.rowIndex="1">
                <graphic>
                   <ImageView fx:id="imgEliminar" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,7 +61,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnEditar" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" stylesheets="@../resource/KinalMarketCSS.css" text="Editar" GridPane.rowIndex="2">
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editar" prefHeight="50.0" prefWidth="130.0" stylesheets="@../resource/KinalMarketCSS.css" text="Editar" GridPane.rowIndex="2">
                <graphic>
                   <ImageView fx:id="imgEditar" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -70,9 +70,9 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btnReportes" mnemonicParsing="false" prefHeight="50.0" prefWidth="130.0" text="Reportes" GridPane.rowIndex="3">
+            <Button fx:id="btnReportes" mnemonicParsing="false" onAction="#reporte" prefHeight="50.0" prefWidth="130.0" text="Reportes" GridPane.rowIndex="3">
                <graphic>
-                  <ImageView fx:id="imgReporte" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imgReportes" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/IconoReportes.png" />
                      </image>

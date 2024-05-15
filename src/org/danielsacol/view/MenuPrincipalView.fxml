@@ -28,6 +28,7 @@
                   <MenuItem fx:id="btnMenuTipoProducto" mnemonicParsing="false" onAction="#handleButtonAction" text="Tipo de producto" />
                   <MenuItem fx:id="btnMenuCargoEmpleado" mnemonicParsing="false" onAction="#handleButtonAction" text="Cargo Empleado" />
                   <MenuItem fx:id="btnMenuProductos" mnemonicParsing="false" onAction="#handleButtonAction" text="Productos" />
+                  <MenuItem fx:id="btnMenuTelProveedor" mnemonicParsing="false" onAction="#handleButtonAction" text="Telefono Proveedor" />
             </items>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
