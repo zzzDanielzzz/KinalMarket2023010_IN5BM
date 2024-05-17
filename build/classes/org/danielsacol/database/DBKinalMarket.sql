@@ -457,7 +457,7 @@ BEGIN
 END$$
 DELIMITER ;
  
-call sp_actualizarProducto('P001', 'Pollo', 8.99, 69.99, 130.99, 'pollo.jpg', 100, 2, 2);
+
  
 Delimiter $$
 CREATE PROCEDURE sp_eliminarProducto(IN _codigoProducto VARCHAR(15))
@@ -468,4 +468,50 @@ END $$
  
 DELIMITER ;
  
-call sp_eliminarProducto('P001');
+
+-- ------------------------------------------ TELEFONO PROVEEDOR------------------------------------------------------
+
+delimiter $$
+
+create procedure sp_agregarTelefonoProveedor(in codTelPro int, in numPrin varchar(8), in numSec varchar(8), in obs varchar(45), in codPro int)
+begin
+    insert into TelefonoProveedor (codigoTelefonoProveedor, numeroPrincipal, numeroSecundario, observaciones, codigoProveedor)
+    values (codTelPro, numPrin, numSec, obs, codPro);
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_listarTelefonoProveedor()
+begin 
+    select t.codigoTelefonoProveedor, t.numeroPrincipal, t.numeroSecundario, t.observaciones, t.codigoProveedor from TelefonoProveedor t;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarTelefonoProveedor(in codPro int)
+begin
+    select t.codigoTelefonoProveedor, t.numeroPrincipal, t.numeroSecundario, t.observaciones, t.codigoProveedor from TelefonoProveedor t where t.codigoProveedor = codPro;
+end$$
+
+delimiter ;
+delimiter $$
+
+create procedure sp_actualizarTelefonoProveedor(in codTelPro int, in numPrin varchar(8), in numSec varchar(8), in obs varchar(45), in codPro int)
+begin
+    update TelefonoProveedor set numeroPrincipal = numPrin, numeroSecundario = numSec, observaciones = obs, codigoProveedor = codPro where codigoTelefonoProveedor = codTelPro;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarTelefonoProveedor(in codTelPro int)
+begin
+    delete from TelefonoProveedor where codigoTelefonoProveedor = codTelPro;
+end$$
+
+delimiter ;

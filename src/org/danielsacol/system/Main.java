@@ -104,7 +104,7 @@ public class Main extends Application {
 
     public void menuProveedorView() {
         try {
-            ProveedorController proveedorView = (ProveedorController) cambiarEscena("ProveedorView.fxml", 1035, 579);
+            ProveedorController proveedorView = (ProveedorController) cambiarEscena("ProveedorView.fxml", 1035, 606);
             proveedorView.setEscenarioPrincipal(this);
 
         } catch (Exception e) {

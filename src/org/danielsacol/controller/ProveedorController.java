@@ -35,6 +35,10 @@ public class ProveedorController implements Initializable {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
+
+    @FXML
+    private Button btnTelProv;
+
     @FXML
     private Button btnAgregarProveedor;
 
@@ -381,6 +385,8 @@ public class ProveedorController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnHomeProveedor) {
             escenarioPrincipal.menuPrincipalView();
+        } else if (event.getSource() == btnTelProv) {
+            escenarioPrincipal.menuTelefonoProveedorView();
         }
     }
 

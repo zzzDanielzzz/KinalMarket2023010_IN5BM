@@ -457,7 +457,7 @@ BEGIN
 END$$
 DELIMITER ;
  
-call sp_actualizarProducto('P001', 'Pollo', 8.99, 69.99, 130.99, 'pollo.jpg', 100, 2, 2);
+
  
 Delimiter $$
 CREATE PROCEDURE sp_eliminarProducto(IN _codigoProducto VARCHAR(15))
@@ -481,6 +481,8 @@ end$$
 
 delimiter ;
 
+call sp_agregarTelefonoProveedor(1, '5165', '5165', 'sdfg', 1);
+
 delimiter $$
 
 create procedure sp_listarTelefonoProveedor()
@@ -490,6 +492,7 @@ end$$
 
 delimiter ;
 
+call sp_listarTelefonoProveedor();
 delimiter $$
 
 create procedure sp_buscarTelefonoProveedor(in codPro int)
