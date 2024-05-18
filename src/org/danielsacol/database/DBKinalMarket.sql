@@ -602,3 +602,74 @@ begin
 end$$
 
 delimiter ;
+
+-- ----------------------------------------------------- Empleados ------------------------------------------------------------
+delimiter $$
+
+create procedure sp_agregarEmpleado(
+    in codEmp int,
+    in nombres varchar(50),
+    in apellidos varchar(50),
+    in sueldo decimal(10,2),
+    in direccion varchar(150),
+    in turno varchar(15),
+    in codCargoEmp int
+)
+begin
+    insert into Empleados (codigoEmpleado, nombresEmpleado, apellidosEmpleado, sueldo, direccion, turno, codigoCargoEmpleado)
+    values (codEmp, nombres, apellidos, sueldo, direccion, turno, codCargoEmp);
+end$$
+
+delimiter ;
+call sp_agregarEmpleado(1, 'John', 'Doe', 3000.00, '1234 Elm Street', 'Day', 1);
+
+
+delimiter $$
+
+create procedure sp_listarEmpleados()
+begin 
+    select e.codigoEmpleado, e.nombresEmpleado, e.apellidosEmpleado, e.sueldo, e.direccion, e.turno, e.codigoCargoEmpleado 
+    from Empleados e;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarEmpleado(in codCargoEmp int)
+begin
+    select e.codigoEmpleado, e.nombresEmpleado, e.apellidosEmpleado, e.sueldo, e.direccion, e.turno, e.codigoCargoEmpleado 
+    from Empleados e 
+    where e.codigoCargoEmpleado = codCargoEmp;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_actualizarEmpleado(
+    in codEmp int,
+    in nombres varchar(50),
+    in apellidos varchar(50),
+    in sueldo decimal(10,2),
+    in direccion varchar(150),
+    in turno varchar(15),
+    in codCargoEmp int
+)
+begin
+    update Empleados 
+    set nombresEmpleado = nombres, apellidosEmpleado = apellidos, sueldo = sueldo, direccion = direccion, turno = turno, codigoCargoEmpleado = codCargoEmp 
+    where codigoEmpleado = codEmp;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarEmpleado(in codEmp int)
+begin
+    delete from Empleados 
+    where codigoEmpleado = codEmp;
+end$$
+
+delimiter ;
