@@ -9,6 +9,7 @@ package org.danielsacol.bean;
  * @author compu
  */
 public class Empleados {
+
     private int codigoEmpleado;
     private String nombresEmpleado;
     private String apellidosEmpleado;
@@ -85,5 +86,9 @@ public class Empleados {
     public void setTurno(String turno) {
         this.turno = turno;
     }
-    
+
+    @Override
+    public String toString() {
+        return getCodigoEmpleado() + "    |   " + getNombresEmpleado();
+    }
 }

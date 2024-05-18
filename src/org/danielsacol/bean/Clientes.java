@@ -1,4 +1,3 @@
-
 package org.danielsacol.bean;
 
 /**
@@ -6,6 +5,7 @@ package org.danielsacol.bean;
  * @author informatica
  */
 public class Clientes {
+
     private int codigoCliente;
     private String NITCliente;
     private String nombreCliente;
@@ -82,6 +82,10 @@ public class Clientes {
     public void setCorreoCliente(String correoCliente) {
         this.correoCliente = correoCliente;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return getNITCliente() + "    |   " + getNombreCliente();
+    }
+
 }

@@ -25,6 +25,7 @@ import org.danielsacol.controller.CargoEmpleadoController;
 import org.danielsacol.controller.ComprasController;
 import org.danielsacol.controller.EmailProveedorController;
 import org.danielsacol.controller.EmpleadosController;
+import org.danielsacol.controller.FacturaController;
 import org.danielsacol.controller.ProductosController;
 import org.danielsacol.controller.ProveedorController;
 import org.danielsacol.controller.TelefonoProveedorController;
@@ -175,6 +176,16 @@ public class Main extends Application {
         try {
             EmpleadosController empleadosView = (EmpleadosController) cambiarEscena("EmpleadosView.fxml", 1000, 575);
             empleadosView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+        public void menuFacturaView() {
+        try {
+            FacturaController facturaView = (FacturaController) cambiarEscena("FacturaView.fxml", 965, 629);
+            facturaView.setEscenarioPrincipal(this);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

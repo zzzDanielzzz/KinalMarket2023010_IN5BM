@@ -57,6 +57,7 @@ create table Productos(
     existencia int,
     codigoProveedor int,
     codigoTipoProducto int,
+    primary key PK_CodigoProducto(codigoProducto),
     constraint FK_Productos_Provedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor),
     constraint FK_Productos_TipoProducto foreign key TipoProducto(codigoTipoProducto)
@@ -69,6 +70,7 @@ create table TelefonoProveedor(
     numeroSecundario varchar(8),
     observaciones varchar(45),
     codigoProveedor int,
+    primary key PK_CodigoTelefonoProveedor (codigoTelefonoProveedor),
     constraint FK_TelefonoProveedor_Proveedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor)
 );
@@ -78,6 +80,7 @@ create table EmailProveedor(
     emailProveedor varchar(50),
     descripcion varchar(100),
     codigoProveedor int,
+    primary key PK_CodigoEmailProveedor (codigoEmailProveedor),
     constraint FK_EmailProveedor_Proveedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor)
 );
@@ -90,10 +93,24 @@ create table Empleados(
     direccion varchar(150),
     turno varchar(15),
     codigoCargoEmpleado int,
+    primary key PK_CodigoEmpleado (codigoEmpleado),
     constraint FK_Empleados_CargoEmpleado foreign key CargoEmpleado(codigoCargoEmpleado)
 		references CargoEmpleado(codigoCargoEmpleado)
 );
 
+create table Factura(
+	numeroFactura int,
+    estado varchar(50),
+    totalFactura decimal(10,2),
+    fechaFactura varchar(45),
+    codigoCliente int,
+    codigoEmpleado int,
+    primary key PK_NumeroFactura (numeroFactura),
+    constraint FK_Factura_Clientes foreign key Clientes(codigoCliente)
+		references Clientes(codigoCliente),
+    constraint FK_Factura_Empleados foreign key Empleados(codigoEmpleado)
+		references Empleados(codigoEmpleado)
+);
 delimiter $$
 
 create procedure sp_agregarCliente(in codCli int, in nitCli varchar(10), in nombreCli varchar(50), in apellidosCli varchar(50),in direccionCli varchar(150), in telefonoCli varchar(45), in correoCli varchar(45)
@@ -126,7 +143,7 @@ call sp_listarCliente();
 
 delimiter $$
 
-create procedure sp_buscarCliente(in nitCli varchar(10))
+create procedure sp_buscarCliente(in codCli varchar(10))
 begin
    select
     c.codigoCliente,
@@ -136,7 +153,7 @@ begin
     c.direccionCliente,
     c.telefonoCliente,
     c.correoCliente
-    from clientes c where NITCliente = nitCli;
+    from clientes c where codigoCliente = codCli;
 end$$
 
 delimiter ;
@@ -636,11 +653,11 @@ delimiter ;
 
 delimiter $$
 
-create procedure sp_buscarEmpleado(in codCargoEmp int)
+create procedure sp_buscarEmpleado(in codEmpleado int)
 begin
     select e.codigoEmpleado, e.nombresEmpleado, e.apellidosEmpleado, e.sueldo, e.direccion, e.turno, e.codigoCargoEmpleado 
     from Empleados e 
-    where e.codigoCargoEmpleado = codCargoEmp;
+    where e.codigoEmpleado = codEmpleado;
 end$$
 
 delimiter ;
@@ -670,6 +687,73 @@ create procedure sp_eliminarEmpleado(in codEmp int)
 begin
     delete from Empleados 
     where codigoEmpleado = codEmp;
+end$$
+
+delimiter ;
+
+-- ------------------------------------------- Factura ------------------------------------------------------------------------
+delimiter $$
+
+create procedure sp_agregarFactura(
+    in numFac int,
+    in estadoFac varchar(50),
+    in totalFac decimal(10,2),
+    in fechaFac varchar(45),
+    in codCli int,
+    in codEmp int
+)
+begin
+    insert into Factura (numeroFactura, estado, totalFactura, fechaFactura, codigoCliente, codigoEmpleado)
+    values (numFac, estadoFac, totalFac, fechaFac, codCli, codEmp);
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_listarFacturas()
+begin 
+    select f.numeroFactura, f.estado, f.totalFactura, f.fechaFactura, f.codigoCliente, f.codigoEmpleado 
+    from Factura f;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarFactura(in numFac int)
+begin
+    select f.numeroFactura, f.estado, f.totalFactura, f.fechaFactura, f.codigoCliente, f.codigoEmpleado 
+    from Factura f 
+    where f.numeroFactura = numFac;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_actualizarFactura(
+    in numFac int,
+    in estadoFac varchar(50),
+    in totalFac decimal(10,2),
+    in fechaFac varchar(45),
+    in codCli int,
+    in codEmp int
+)
+begin
+    update Factura 
+    set estado = estadoFac, totalFactura = totalFac, fechaFactura = fechaFac, codigoCliente = codCli, codigoEmpleado = codEmp 
+    where numeroFactura = numFac;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarFactura(in numFac int)
+begin
+    delete from Factura 
+    where numeroFactura = numFac;
 end$$
 
 delimiter ;

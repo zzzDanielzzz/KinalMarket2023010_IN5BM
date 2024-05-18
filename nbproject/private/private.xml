@@ -3,10 +3,20 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/db/Conexion.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/bean/Empleados.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/bean/Proveedores.java</file>
             <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/controller/ProductosController.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/controller/EmailProveedorController.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/controller/CargoEmpleadoController.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/controller/ProveedorController.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/system/Main.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/db/Conexion.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/controller/EmpleadosController.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/bean/CargoEmpleado.java</file>
             <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/bean/TelefonoProveedor.java</file>
             <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/controller/TelefonoProveedorController.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/controller/MenuPrincipalController.java</file>
+            <file>file:/C:/Users/compu/OneDrive/Escritorio/RepositorioCasaKinalMarket/KinalMarket2023010_IN5BM/src/org/danielsacol/bean/EmailProveedor.java</file>
         </group>
     </open-files>
 </project-private>
