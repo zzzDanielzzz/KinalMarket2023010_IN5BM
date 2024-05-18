@@ -36,6 +36,8 @@ public class CargoEmpleadoController implements Initializable {
     private Main escenarioPrincipal;
     @FXML
     private Button btnHomeCargoEmpleado;
+    @FXML
+    private Button btnRegresarEmpleados;
 
     private ObservableList<CargoEmpleado> listaCargoEmpleado;
 
@@ -303,6 +305,8 @@ public class CargoEmpleadoController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnHomeCargoEmpleado) {
             escenarioPrincipal.menuPrincipalView();
+        } else if (event.getSource() == btnRegresarEmpleados) {
+            escenarioPrincipal.menuEmpleadosView();
         }
     }
 

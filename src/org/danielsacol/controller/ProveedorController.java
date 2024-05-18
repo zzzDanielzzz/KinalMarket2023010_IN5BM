@@ -38,6 +38,8 @@ public class ProveedorController implements Initializable {
 
     @FXML
     private Button btnTelProv;
+    @FXML
+    private Button btnEmailProv;
 
     @FXML
     private Button btnAgregarProveedor;
@@ -387,6 +389,8 @@ public class ProveedorController implements Initializable {
             escenarioPrincipal.menuPrincipalView();
         } else if (event.getSource() == btnTelProv) {
             escenarioPrincipal.menuTelefonoProveedorView();
+        } else if (event.getSource() == btnEmailProv) {
+            escenarioPrincipal.menuEmailProveedorView();
         }
     }
 

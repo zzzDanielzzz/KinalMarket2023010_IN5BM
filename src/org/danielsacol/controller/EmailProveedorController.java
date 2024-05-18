@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package org.danielsacol.controller;
 
 import java.net.URL;
@@ -19,16 +23,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javax.swing.JOptionPane;
+import org.danielsacol.bean.EmailProveedor;
 import org.danielsacol.bean.Proveedores;
-import org.danielsacol.bean.TelefonoProveedor;
 import org.danielsacol.db.Conexion;
 import org.danielsacol.system.Main;
 
 /**
  *
- * @author informatica
+ * @author compu
  */
-public class TelefonoProveedorController implements Initializable {
+public class EmailProveedorController implements Initializable {
 
     private Main escenarioPrincipal;
 
@@ -36,29 +40,23 @@ public class TelefonoProveedorController implements Initializable {
         AGREGAR, ELIMINAR, EDITAR, ACTUALIZAR, CANCELAR, NINGUNO
     }
     private operaciones tipoDeOperaciones = operaciones.NINGUNO;
-    private ObservableList<TelefonoProveedor> listaTelefonosProveedor;
+    private ObservableList<EmailProveedor> listaEmailProveedor;
     private ObservableList<Proveedores> listaProveedores;
 
     @FXML
-    private Button btnHomeTelProv;
-    
-        @FXML
-    private Button btnProveedores;
+    private Button btnHomeEmailProv;
 
     @FXML
-    private TableView tblTelProv;
+    private TableView tblEmailProv;
 
     @FXML
-    private TableColumn colCodTelProv;
+    private TableColumn colCodEmailProv;
 
     @FXML
-    private TableColumn colNumPrincipal;
+    private TableColumn colEmailProv;
 
     @FXML
-    private TableColumn colNumSecundario;
-
-    @FXML
-    private TableColumn colObservaciones;
+    private TableColumn colDescrProv;
 
     @FXML
     private TableColumn colCodProv;
@@ -88,24 +86,24 @@ public class TelefonoProveedorController implements Initializable {
     private ImageView imgReportes;
 
     @FXML
-    private TextField txtCodTelProv;
+    private Button btnProveedores;
 
     @FXML
-    private TextField txtNumPrincipal;
+    private TextField txtCodEmailProv;
 
     @FXML
-    private TextField txtNumSecundario;
+    private TextField txtEmailProv;
 
     @FXML
-    private TextField txtObservaciones;
+    private TextField txtDescrProv;
 
     @FXML
-    private ComboBox cmbCodProv;
+    private ComboBox cmbCodigoProveedor;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarDatos();
-        cmbCodProv.setItems(getProveedores());
+        cmbCodigoProveedor.setItems(getProveedores());
     }
 
     public void setEscenarioPrincipal(Main escenarioPrincipal) {
@@ -113,21 +111,19 @@ public class TelefonoProveedorController implements Initializable {
     }
 
     public void cargarDatos() {
-        tblTelProv.setItems(getTelefonoProveedor());
-        colCodTelProv.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("codigoTelefonoProveedor"));
-        colNumPrincipal.setCellValueFactory(new PropertyValueFactory<Proveedores, String>("numeroPrincipal"));
-        colNumSecundario.setCellValueFactory(new PropertyValueFactory<Proveedores, String>("numeroSecundario"));
-        colObservaciones.setCellValueFactory(new PropertyValueFactory<Proveedores, String>("observaciones"));
+        tblEmailProv.setItems(getEmailProveedor());
+        colCodEmailProv.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("codigoEmailProveedor"));
+        colEmailProv.setCellValueFactory(new PropertyValueFactory<Proveedores, String>("emailProveedor"));
+        colDescrProv.setCellValueFactory(new PropertyValueFactory<Proveedores, String>("descripcion"));
         colCodProv.setCellValueFactory(new PropertyValueFactory<Proveedores, Integer>("codigoProveedor"));
     }
 
     public void seleccionarElementos() {
 
-        txtCodTelProv.setText(String.valueOf(((TelefonoProveedor) tblTelProv.getSelectionModel().getSelectedItem()).getCodigoTelefonoProveedor()));
-        txtNumPrincipal.setText((((TelefonoProveedor) tblTelProv.getSelectionModel().getSelectedItem()).getNumeroPrincipal()));
-        txtNumSecundario.setText((((TelefonoProveedor) tblTelProv.getSelectionModel().getSelectedItem()).getNumeroSecundario()));
-        txtObservaciones.setText((((TelefonoProveedor) tblTelProv.getSelectionModel().getSelectedItem()).getObservaciones()));
-        cmbCodProv.getSelectionModel().select(buscarProveedor(((TelefonoProveedor) tblTelProv.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
+        txtCodEmailProv.setText(String.valueOf(((EmailProveedor) tblEmailProv.getSelectionModel().getSelectedItem()).getCodigoEmailProveedor()));
+        txtEmailProv.setText((((EmailProveedor) tblEmailProv.getSelectionModel().getSelectedItem()).getEmailProveedor()));
+        txtDescrProv.setText((((EmailProveedor) tblEmailProv.getSelectionModel().getSelectedItem()).getDescripcion()));
+        cmbCodigoProveedor.getSelectionModel().select(buscarProveedor(((EmailProveedor) tblEmailProv.getSelectionModel().getSelectedItem()).getCodigoProveedor()));
     }
 
     public Proveedores buscarProveedor(int codigoProveedor) {
@@ -153,25 +149,25 @@ public class TelefonoProveedorController implements Initializable {
         return resultado;
     }
 
-    public ObservableList<TelefonoProveedor> getTelefonoProveedor() {
-        ArrayList<TelefonoProveedor> lista = new ArrayList<>();
+    public ObservableList<EmailProveedor> getEmailProveedor() {
+        ArrayList<EmailProveedor> lista = new ArrayList<>();
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarTelefonoProveedor()}");
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarEmailProveedor()}");
             ResultSet resultado = procedimiento.executeQuery();
             while (resultado.next()) {
-                lista.add(new TelefonoProveedor(resultado.getInt("codigoTelefonoProveedor"),
-                        resultado.getString("numeroPrincipal"),
-                        resultado.getString("numeroSecundario"),
-                        resultado.getString("observaciones"),
+                lista.add(new EmailProveedor(resultado.getInt("codigoEmailProveedor"),
+                        resultado.getString("emailProveedor"),
+                        resultado.getString("descripcion"),
                         resultado.getInt("codigoProveedor")));
 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return listaTelefonosProveedor = FXCollections.observableList(lista);
+        return listaEmailProveedor = FXCollections.observableList(lista);
     }
-        public ObservableList<Proveedores> getProveedores() {
+
+    public ObservableList<Proveedores> getProveedores() {
         ArrayList<Proveedores> lista = new ArrayList<>();
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarProveedor()}");
@@ -203,7 +199,7 @@ public class TelefonoProveedorController implements Initializable {
                 btnReportes.setDisable(true);
                 imgAgregar.setImage(new Image("/org/danielsacol/images/IconoGuadar.png"));
                 imgEliminar.setImage(new Image("/org/danielsacol/images/IconoCancelar.png"));
-                tipoDeOperaciones = TelefonoProveedorController.operaciones.ACTUALIZAR;
+                tipoDeOperaciones = EmailProveedorController.operaciones.ACTUALIZAR;
                 break;
             case ACTUALIZAR:
                 guardar();
@@ -216,7 +212,7 @@ public class TelefonoProveedorController implements Initializable {
                 btnReportes.setDisable(false);
                 imgAgregar.setImage(new Image("/org/danielsacol/images/IconoAgregar.png"));
                 imgEliminar.setImage(new Image("/org/danielsacol/images/IconoEliminar.png"));
-                tipoDeOperaciones = TelefonoProveedorController.operaciones.NINGUNO;
+                tipoDeOperaciones = EmailProveedorController.operaciones.NINGUNO;
                 cargarDatos();
                 break;
         }
@@ -224,23 +220,21 @@ public class TelefonoProveedorController implements Initializable {
     }
 
     public void guardar() {
-        TelefonoProveedor registro = new TelefonoProveedor();
-        registro.setCodigoTelefonoProveedor(Integer.parseInt(txtCodTelProv.getText()));
-        registro.setCodigoProveedor(((Proveedores) cmbCodProv.getSelectionModel().getSelectedItem()).getCodigoProveedor());
-        registro.setNumeroPrincipal(txtNumPrincipal.getText());
-        registro.setNumeroSecundario(txtNumSecundario.getText());
-        registro.setObservaciones(txtObservaciones.getText());
+        EmailProveedor registro = new EmailProveedor();
+        registro.setCodigoEmailProveedor(Integer.parseInt(txtCodEmailProv.getText()));
+        registro.setCodigoProveedor(((Proveedores) cmbCodigoProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
+        registro.setEmailProveedor(txtEmailProv.getText());
+        registro.setDescripcion(txtDescrProv.getText());
 
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarTelefonoProveedor(?,?,?,?,?)}");
-            procedimiento.setInt(1, registro.getCodigoTelefonoProveedor());
-            procedimiento.setString(2, registro.getNumeroPrincipal());
-            procedimiento.setString(3, registro.getNumeroSecundario());
-            procedimiento.setString(4, registro.getObservaciones());
-            procedimiento.setInt(5, registro.getCodigoProveedor());
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarEmailProveedor(?,?,?,?)}");
+            procedimiento.setInt(1, registro.getCodigoEmailProveedor());
+            procedimiento.setString(2, registro.getEmailProveedor());
+            procedimiento.setString(3, registro.getDescripcion());
+            procedimiento.setInt(4, registro.getCodigoProveedor());
             procedimiento.execute();
 
-            listaTelefonosProveedor.add(registro);
+            listaEmailProveedor.add(registro);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -261,15 +255,15 @@ public class TelefonoProveedorController implements Initializable {
                 break;
 
             default:
-                if (tblTelProv.getSelectionModel().getSelectedItem() != null) {
+                if (tblEmailProv.getSelectionModel().getSelectedItem() != null) {
                     int respuesta = JOptionPane.showConfirmDialog(null, "Confirmar la eliminacion del registro", "Eliminar registro",
                             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                     if (respuesta == JOptionPane.YES_NO_OPTION) {
                         try {
                             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_eliminarTelefonoProveedor(?)}");
-                            procedimiento.setInt(1, ((TelefonoProveedor) tblTelProv.getSelectionModel().getSelectedItem()).getCodigoTelefonoProveedor());
+                            procedimiento.setInt(1, ((EmailProveedor) tblEmailProv.getSelectionModel().getSelectedItem()).getCodigoEmailProveedor());
                             procedimiento.execute();
-                            listaTelefonosProveedor.remove(tblTelProv.getSelectionModel().getSelectedItem());
+                            listaEmailProveedor.remove(tblEmailProv.getSelectionModel().getSelectedItem());
                             limpiarControles();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -287,7 +281,7 @@ public class TelefonoProveedorController implements Initializable {
     public void editar() {
         switch (tipoDeOperaciones) {
             case NINGUNO:
-                if (tblTelProv.getSelectionModel().getSelectedItem() != null) {
+                if (tblEmailProv.getSelectionModel().getSelectedItem() != null) {
                     btnEditar.setText("Actualizar");
                     btnReportes.setText("Cancelar");
                     btnAgregar.setDisable(true);
@@ -295,7 +289,7 @@ public class TelefonoProveedorController implements Initializable {
                     imgEditar.setImage(new Image("/org/danielsacol/images/IconoActualizar.png"));
                     imgReportes.setImage(new Image("/org/danielsacol/images/IconoCancelar.png"));
                     activarControles();
-                    txtCodTelProv.setEditable(false);
+                    txtCodEmailProv.setEditable(false);
                     tipoDeOperaciones = operaciones.ACTUALIZAR;
                 } else {
                     JOptionPane.showMessageDialog(null, "Debe de selecionar un registro para editar");
@@ -324,19 +318,18 @@ public class TelefonoProveedorController implements Initializable {
 
     public void actualizar() {
         try {
-            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarTelefonoProveedor(?, ?, ?, ?, ?)}");
-            TelefonoProveedor registro = (TelefonoProveedor) tblTelProv.getSelectionModel().getSelectedItem();
+            PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_actualizarEmailProveedor(?, ?, ?, ?)}");
+            EmailProveedor registro = (EmailProveedor) tblEmailProv.getSelectionModel().getSelectedItem();
 
-            registro.setCodigoProveedor(((Proveedores) cmbCodProv.getSelectionModel().getSelectedItem()).getCodigoProveedor());
-            registro.setNumeroPrincipal(txtNumPrincipal.getText());
-            registro.setNumeroSecundario(txtNumSecundario.getText());
-            registro.setObservaciones(txtObservaciones.getText());
+            registro.setCodigoEmailProveedor(Integer.parseInt(txtCodEmailProv.getText()));
+            registro.setCodigoProveedor(((Proveedores) cmbCodigoProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
+            registro.setEmailProveedor(txtEmailProv.getText());
+            registro.setDescripcion(txtDescrProv.getText());
 
-            procedimiento.setInt(1, registro.getCodigoTelefonoProveedor());
-            procedimiento.setString(2, registro.getNumeroPrincipal());
-            procedimiento.setString(3, registro.getNumeroSecundario());
-            procedimiento.setString(4, registro.getObservaciones());
-            procedimiento.setInt(5, registro.getCodigoProveedor());
+            procedimiento.setInt(1, registro.getCodigoEmailProveedor());
+            procedimiento.setString(2, registro.getEmailProveedor());
+            procedimiento.setString(3, registro.getDescripcion());
+            procedimiento.setInt(4, registro.getCodigoProveedor());
 
             procedimiento.execute();
 
@@ -356,7 +349,7 @@ public class TelefonoProveedorController implements Initializable {
                 btnEliminar.setDisable(false);
                 desactivarControles();
                 limpiarControles();
-                tipoDeOperaciones = TelefonoProveedorController.operaciones.NINGUNO;
+                tipoDeOperaciones = EmailProveedorController.operaciones.NINGUNO;
                 cargarDatos();
             case NINGUNO:
                 break;
@@ -364,34 +357,32 @@ public class TelefonoProveedorController implements Initializable {
     }
 
     public void desactivarControles() {
-        txtCodTelProv.setDisable(true);
-        txtNumPrincipal.setDisable(true);
-        txtNumSecundario.setDisable(true);
-        txtObservaciones.setDisable(true);
-        cmbCodProv.setDisable(true);
+        txtCodEmailProv.setDisable(true);
+        txtEmailProv.setDisable(true);
+        txtDescrProv.setDisable(true);
+        cmbCodigoProveedor.setDisable(true);
     }
 
     public void activarControles() {
-        txtCodTelProv.setDisable(false);
-        txtNumPrincipal.setDisable(false);
-        txtNumSecundario.setDisable(false);
-        txtObservaciones.setDisable(false);
-        cmbCodProv.setDisable(false);
+        txtCodEmailProv.setDisable(false);
+        txtEmailProv.setDisable(false);
+        txtDescrProv.setDisable(false);
+        cmbCodigoProveedor.setDisable(false);
+
     }
 
     public void limpiarControles() {
-        txtCodTelProv.clear();
-        txtNumPrincipal.clear();
-        txtNumSecundario.clear();
-        txtObservaciones.clear();
-        cmbCodProv.getSelectionModel().getSelectedItem();
+        txtCodEmailProv.clear();
+        txtEmailProv.clear();
+        txtDescrProv.clear();
+        cmbCodigoProveedor.getSelectionModel().getSelectedItem();
     }
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
-        if (event.getSource() == btnHomeTelProv) {
+        if (event.getSource() == btnHomeEmailProv) {
             escenarioPrincipal.menuPrincipalView();
-        } else if(event.getSource() == btnProveedores){
+        } else if (event.getSource() == btnProveedores) {
             escenarioPrincipal.menuProveedorView();
         }
     }

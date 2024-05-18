@@ -29,6 +29,8 @@
                   <MenuItem fx:id="btnMenuCargoEmpleado" mnemonicParsing="false" onAction="#handleButtonAction" text="Cargo Empleado" />
                   <MenuItem fx:id="btnMenuProductos" mnemonicParsing="false" onAction="#handleButtonAction" text="Productos" />
                   <MenuItem fx:id="btnMenuTelProveedor" mnemonicParsing="false" onAction="#handleButtonAction" text="Telefono Proveedor" />
+                  <MenuItem fx:id="btnMenuEmailProv" mnemonicParsing="false" onAction="#handleButtonAction" text="Email Proveedor" />
+                  <MenuItem fx:id="btnMenuEmpleados" mnemonicParsing="false" onAction="#handleButtonAction" text="Empleados" />
             </items>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">

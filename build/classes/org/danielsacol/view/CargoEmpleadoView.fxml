@@ -21,7 +21,7 @@
             <Image url="@../images/Presentacion%20proyecto%20minimalista%20azul.png" />
          </image>
       </ImageView>
-      <TableView fx:id="tblCargoEmpleado" layoutX="186.0" layoutY="262.0" onMouseClicked="#seleccionarElementos" prefHeight="262.0" prefWidth="731.0" stylesheets="@../resource/KinalMarketCSS.css">
+      <TableView fx:id="tblCargoEmpleado" layoutX="187.0" layoutY="244.0" onMouseClicked="#seleccionarElementos" prefHeight="262.0" prefWidth="731.0" stylesheets="@../resource/KinalMarketCSS.css">
          <columns>
             <TableColumn fx:id="colCodigoCargoEmpleado" prefWidth="179.0" text="codigoCargoEmpleado" />
             <TableColumn fx:id="colNombreCargo" prefWidth="274.0" text="nombreCargo" />
@@ -38,7 +38,7 @@
             <Image url="@../images/Orange%20Blue%20Simple%20Flat%20Illustrative%20Supermarket%20Logo.png" />
          </image>
       </ImageView>
-      <GridPane layoutX="32.0" layoutY="262.0" prefHeight="245.0" prefWidth="139.0">
+      <GridPane layoutX="32.0" layoutY="244.0" prefHeight="245.0" prefWidth="139.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
@@ -118,6 +118,12 @@
                </image>
             </ImageView>
          </graphic>
+      </Button>
+      <Button fx:id="btnRegresarEmpleados" layoutX="492.0" layoutY="513.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="36.0" prefWidth="121.0" text="Empleados">
+         <stylesheets>
+            <URL value="@../resource/KinalMarketCSS.css" />
+            <URL value="@../resource/KinalMarketCSS.css" />
+         </stylesheets>
       </Button>
    </children>
 </AnchorPane>

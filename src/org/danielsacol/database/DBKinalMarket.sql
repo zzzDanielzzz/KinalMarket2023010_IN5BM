@@ -73,6 +73,27 @@ create table TelefonoProveedor(
 		references Proveedores(codigoProveedor)
 );
 
+create table EmailProveedor(
+	codigoEmailProveedor int,
+    emailProveedor varchar(50),
+    descripcion varchar(100),
+    codigoProveedor int,
+    constraint FK_EmailProveedor_Proveedores foreign key Proveedores(codigoProveedor)
+		references Proveedores(codigoProveedor)
+);
+
+create table Empleados(
+	codigoEmpleado int,
+    nombresEmpleado varchar(50),
+    apellidosEmpleado varchar(50),
+    sueldo decimal(10,2),
+    direccion varchar(150),
+    turno varchar(15),
+    codigoCargoEmpleado int,
+    constraint FK_Empleados_CargoEmpleado foreign key CargoEmpleado(codigoCargoEmpleado)
+		references CargoEmpleado(codigoCargoEmpleado)
+);
+
 delimiter $$
 
 create procedure sp_agregarCliente(in codCli int, in nitCli varchar(10), in nombreCli varchar(50), in apellidosCli varchar(50),in direccionCli varchar(150), in telefonoCli varchar(45), in correoCli varchar(45)
@@ -515,6 +536,69 @@ delimiter $$
 create procedure sp_eliminarTelefonoProveedor(in codTelPro int)
 begin
     delete from TelefonoProveedor where codigoTelefonoProveedor = codTelPro;
+end$$
+
+delimiter ;
+
+-- --------------------------------------- -----Email Proveedor -------------------------------------------------------------------------------
+delimiter $$
+
+create procedure sp_agregarEmailProveedor(
+    in codEmailPro int,
+    in email varchar(50),
+    in descr varchar(100),
+    in codPro int
+)
+begin
+    insert into EmailProveedor (codigoEmailProveedor, emailProveedor, descripcion, codigoProveedor)
+    values (codEmailPro, email, descr, codPro);
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_listarEmailProveedor()
+begin 
+    select e.codigoEmailProveedor, e.emailProveedor, e.descripcion, e.codigoProveedor 
+    from EmailProveedor e;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarEmailProveedor(in codPro int)
+begin
+    select e.codigoEmailProveedor, e.emailProveedor, e.descripcion, e.codigoProveedor 
+    from EmailProveedor e 
+    where e.codigoProveedor = codPro;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_actualizarEmailProveedor(
+    in codEmailPro int,
+    in email varchar(50),
+    in descr varchar(100),
+    in codPro int
+)
+begin
+    update EmailProveedor 
+    set emailProveedor = email, descripcion = descr, codigoProveedor = codPro 
+    where codigoEmailProveedor = codEmailPro;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarEmailProveedor(in codEmailPro int)
+begin
+    delete from EmailProveedor 
+    where codigoEmailProveedor = codEmailPro;
 end$$
 
 delimiter ;

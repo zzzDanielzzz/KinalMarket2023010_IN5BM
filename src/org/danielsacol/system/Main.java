@@ -23,17 +23,16 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import org.danielsacol.controller.CargoEmpleadoController;
 import org.danielsacol.controller.ComprasController;
+import org.danielsacol.controller.EmailProveedorController;
+import org.danielsacol.controller.EmpleadosController;
 import org.danielsacol.controller.ProductosController;
 import org.danielsacol.controller.ProveedorController;
 import org.danielsacol.controller.TelefonoProveedorController;
 import org.danielsacol.controller.TipoProductoController;
 
 /**
- * Nombre: Daniel Eduardo Sacol Cojón 
- * Carné: 2023010 
- * Codigo Tecnico: IN5BM 
- * Fecha de creacion: 16/04/2024 
- * Fecha de modificaciones: 17/04/2024, 23/04/2024,
+ * Nombre: Daniel Eduardo Sacol Cojón Carné: 2023010 Codigo Tecnico: IN5BM Fecha
+ * de creacion: 16/04/2024 Fecha de modificaciones: 17/04/2024, 23/04/2024,
  * 24/04/2024, 25/04/2024, 07/05/2024, 09/05/2024
  *
  */
@@ -141,8 +140,8 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
-    
-        public void menuProductosView() {
+
+    public void menuProductosView() {
         try {
             ProductosController productosView = (ProductosController) cambiarEscena("ProductosView.fxml", 1139, 629);
             productosView.setEscenarioPrincipal(this);
@@ -151,8 +150,8 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
-        
-          public void menuTelefonoProveedorView() {
+
+    public void menuTelefonoProveedorView() {
         try {
             TelefonoProveedorController telefonoProveedorView = (TelefonoProveedorController) cambiarEscena("TelefonoProveedorView.fxml", 944, 556);
             telefonoProveedorView.setEscenarioPrincipal(this);
@@ -160,7 +159,27 @@ public class Main extends Application {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }      
+    }
+
+    public void menuEmailProveedorView() {
+        try {
+            EmailProveedorController emailProveedorView = (EmailProveedorController) cambiarEscena("EmailProveedorView.fxml", 912, 574);
+            emailProveedorView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void menuEmpleadosView() {
+        try {
+            EmpleadosController empleadosView = (EmpleadosController) cambiarEscena("EmpleadosView.fxml", 1000, 575);
+            empleadosView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -170,4 +189,3 @@ public class Main extends Application {
     }
 
 }
-
