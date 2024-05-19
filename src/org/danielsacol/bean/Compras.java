@@ -53,4 +53,8 @@ public class Compras {
         this.descripcion = descripcion;
     }
     
+        @Override
+    public String toString() {
+        return getNumeroDocumento() + "    |   " + getDescripcion();
+    }
 }

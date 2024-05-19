@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import org.danielsacol.controller.CargoEmpleadoController;
 import org.danielsacol.controller.ComprasController;
+import org.danielsacol.controller.DetalleCompraController;
+import org.danielsacol.controller.DetalleFacturaController;
 import org.danielsacol.controller.EmailProveedorController;
 import org.danielsacol.controller.EmpleadosController;
 import org.danielsacol.controller.FacturaController;
@@ -181,11 +183,31 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
-    
-        public void menuFacturaView() {
+
+    public void menuFacturaView() {
         try {
             FacturaController facturaView = (FacturaController) cambiarEscena("FacturaView.fxml", 965, 629);
             facturaView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void menuDetalleFacturaView() {
+        try {
+            DetalleFacturaController detalleFacturaView = (DetalleFacturaController) cambiarEscena("DetalleFacturaView.fxml", 965, 629);
+            detalleFacturaView.setEscenarioPrincipal(this);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+        public void menuDetalleCompraView() {
+        try {
+            DetalleCompraController detalleCompraView = (DetalleCompraController) cambiarEscena("DetalleCompraView.fxml", 965, 629);
+            detalleCompraView.setEscenarioPrincipal(this);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());

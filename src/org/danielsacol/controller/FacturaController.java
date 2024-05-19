@@ -117,7 +117,7 @@ public class FacturaController implements Initializable {
     }
 
     public void cargarDatos() {
-        tblFactura.setItems(getProductos());
+        tblFactura.setItems(getFacturas());
         colNumFactura.setCellValueFactory(new PropertyValueFactory<Factura, Integer>("numeroFactura"));
         colEstado.setCellValueFactory(new PropertyValueFactory<Factura, String>("estado"));
         colTotalFactura.setCellValueFactory(new PropertyValueFactory<Factura, Double>("totalFactura"));
@@ -180,7 +180,7 @@ public class FacturaController implements Initializable {
         return resultado;
     }
 
-    public ObservableList<Factura> getProductos() {
+    public ObservableList<Factura> getFacturas() {
         ArrayList<Factura> lista = new ArrayList<>();
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_listarFacturas()}");

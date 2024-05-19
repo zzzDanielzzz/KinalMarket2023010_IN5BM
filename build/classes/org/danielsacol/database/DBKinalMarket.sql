@@ -57,6 +57,7 @@ create table Productos(
     existencia int,
     codigoProveedor int,
     codigoTipoProducto int,
+    primary key PK_CodigoProducto(codigoProducto),
     constraint FK_Productos_Provedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor),
     constraint FK_Productos_TipoProducto foreign key TipoProducto(codigoTipoProducto)
@@ -69,6 +70,7 @@ create table TelefonoProveedor(
     numeroSecundario varchar(8),
     observaciones varchar(45),
     codigoProveedor int,
+    primary key PK_CodigoTelefonoProveedor (codigoTelefonoProveedor),
     constraint FK_TelefonoProveedor_Proveedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor)
 );
@@ -78,6 +80,7 @@ create table EmailProveedor(
     emailProveedor varchar(50),
     descripcion varchar(100),
     codigoProveedor int,
+    primary key PK_CodigoEmailProveedor (codigoEmailProveedor),
     constraint FK_EmailProveedor_Proveedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor)
 );
@@ -90,10 +93,50 @@ create table Empleados(
     direccion varchar(150),
     turno varchar(15),
     codigoCargoEmpleado int,
+    primary key PK_CodigoEmpleado (codigoEmpleado),
     constraint FK_Empleados_CargoEmpleado foreign key CargoEmpleado(codigoCargoEmpleado)
 		references CargoEmpleado(codigoCargoEmpleado)
 );
 
+create table Factura(
+	numeroFactura int,
+    estado varchar(50),
+    totalFactura decimal(10,2),
+    fechaFactura varchar(45),
+    codigoCliente int,
+    codigoEmpleado int,
+    primary key PK_NumeroFactura (numeroFactura),
+    constraint FK_Factura_Clientes foreign key Clientes(codigoCliente)
+		references Clientes(codigoCliente),
+    constraint FK_Factura_Empleados foreign key Empleados(codigoEmpleado)
+		references Empleados(codigoEmpleado)
+);
+
+create table DetalleFactura(
+	codigoDetalleFactura int,
+    precioUnitario decimal(10, 2),
+    cantidad int,
+    numeroFactura int,
+    codigoProducto varchar(15),
+    primary key PK_CodigoDetalleFactura (codigoDetalleFactura),
+    constraint FK_DetalleFactura_Facturas foreign key Factura(numeroFactura)
+		references Factura(numeroFactura),
+	constraint FK_DetalleFactura_Productos foreign key Productos(codigoProducto)
+		references Productos(codigoProducto)
+);
+
+create table DetalleCompra(
+	codigoDetalleCompra int,
+    costoUnitario decimal(10,2),
+    cantidad int,
+    codigoProducto varchar(15),
+    numeroDocumento int,
+    primary key PK_CodigoDetalleCompra(codigoDetalleCompra),
+    constraint FK_DetalleCompra_Productos foreign key Productos(codigoProducto)
+		references Productos(codigoProducto),
+    constraint FK_DetalleCompra_Compras foreign key Compras(numeroDocumento)    
+		references Compras(numeroDocumento)
+);
 delimiter $$
 
 create procedure sp_agregarCliente(in codCli int, in nitCli varchar(10), in nombreCli varchar(50), in apellidosCli varchar(50),in direccionCli varchar(150), in telefonoCli varchar(45), in correoCli varchar(45)
@@ -126,7 +169,7 @@ call sp_listarCliente();
 
 delimiter $$
 
-create procedure sp_buscarCliente(in nitCli varchar(10))
+create procedure sp_buscarCliente(in codCli varchar(10))
 begin
    select
     c.codigoCliente,
@@ -136,7 +179,7 @@ begin
     c.direccionCliente,
     c.telefonoCliente,
     c.correoCliente
-    from clientes c where NITCliente = nitCli;
+    from clientes c where codigoCliente = codCli;
 end$$
 
 delimiter ;
@@ -431,6 +474,17 @@ DELIMITER ;
  
 CALL sp_agregarProducto('P001', 'Arroz', 5.99, 68.99, 129.99, 'arroz.jpg', 100, 1, 1);
 
+delimiter $$
+
+create procedure sp_buscarProductoPorCodigo(in codProd varchar(15))
+begin
+    select p.codigoProducto, p.descripcionProducto, p.precioUnitario, p.precioDocena, p.precioMayor, 
+           p.imagenProducto, p.existencia, p.codigoProveedor, p.codigoTipoProducto
+    from Productos p 
+    where p.codigoProducto = codProd;
+end$$
+
+delimiter ;
  
 Delimiter $$
 create procedure sp_listarProductos()
@@ -636,11 +690,11 @@ delimiter ;
 
 delimiter $$
 
-create procedure sp_buscarEmpleado(in codCargoEmp int)
+create procedure sp_buscarEmpleado(in codEmpleado int)
 begin
     select e.codigoEmpleado, e.nombresEmpleado, e.apellidosEmpleado, e.sueldo, e.direccion, e.turno, e.codigoCargoEmpleado 
     from Empleados e 
-    where e.codigoCargoEmpleado = codCargoEmp;
+    where e.codigoEmpleado = codEmpleado;
 end$$
 
 delimiter ;
@@ -673,3 +727,201 @@ begin
 end$$
 
 delimiter ;
+
+-- ------------------------------------------- Factura ------------------------------------------------------------------------
+delimiter $$
+
+create procedure sp_agregarFactura(
+    in numFac int,
+    in estadoFac varchar(50),
+    in totalFac decimal(10,2),
+    in fechaFac varchar(45),
+    in codCli int,
+    in codEmp int
+)
+begin
+    insert into Factura (numeroFactura, estado, totalFactura, fechaFactura, codigoCliente, codigoEmpleado)
+    values (numFac, estadoFac, totalFac, fechaFac, codCli, codEmp);
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_listarFacturas()
+begin 
+    select f.numeroFactura, f.estado, f.totalFactura, f.fechaFactura, f.codigoCliente, f.codigoEmpleado 
+    from Factura f;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarFactura(in numFac int)
+begin
+    select f.numeroFactura, f.estado, f.totalFactura, f.fechaFactura, f.codigoCliente, f.codigoEmpleado 
+    from Factura f 
+    where f.numeroFactura = numFac;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_actualizarFactura(
+    in numFac int,
+    in estadoFac varchar(50),
+    in totalFac decimal(10,2),
+    in fechaFac varchar(45),
+    in codCli int,
+    in codEmp int
+)
+begin
+    update Factura 
+    set estado = estadoFac, totalFactura = totalFac, fechaFactura = fechaFac, codigoCliente = codCli, codigoEmpleado = codEmp 
+    where numeroFactura = numFac;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarFactura(in numFac int)
+begin
+    delete from Factura 
+    where numeroFactura = numFac;
+end$$
+
+delimiter ;
+
+-- ------------------------------------------------ Detalle Factura-----------------------------------------------------
+delimiter $$
+
+create procedure sp_agregarDetalleFactura(
+    in codDetFac int,
+    in precioUnit decimal(10,2),
+    in cant int,
+    in numFac int,
+    in codProd varchar(15)
+)
+begin
+    insert into DetalleFactura (codigoDetalleFactura, precioUnitario, cantidad, numeroFactura, codigoProducto)
+    values (codDetFac, precioUnit, cant, numFac, codProd);
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_listarDetalleFacturas()
+begin 
+    select d.codigoDetalleFactura, d.precioUnitario, d.cantidad, d.numeroFactura, d.codigoProducto
+    from DetalleFactura d;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarDetalleFactura(in codDetFac int)
+begin
+    select d.codigoDetalleFactura, d.precioUnitario, d.cantidad, d.numeroFactura, d.codigoProducto
+    from DetalleFactura d 
+    where d.codigoDetalleFactura = codDetFac;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_actualizarDetalleFactura(
+    in codDetFac int,
+    in precioUnit decimal(10,2),
+    in cant int,
+    in numFac int,
+    in codProd varchar(15)
+)
+begin
+    update DetalleFactura 
+    set precioUnitario = precioUnit, cantidad = cant, numeroFactura = numFac, codigoProducto = codProd 
+    where codigoDetalleFactura = codDetFac;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarDetalleFactura(in codDetFac int)
+begin
+    delete from DetalleFactura 
+    where codigoDetalleFactura = codDetFac;
+end$$
+
+delimiter ;
+
+-- ------------------------------------------------- Detalle Compra ---------------------------------------------------
+delimiter $$
+
+create procedure sp_agregarDetalleCompra(
+    in codDetComp int,
+    in costoUnit decimal(10,2),
+    in cant int,
+    in codProd varchar(15),
+    in numDoc int
+)
+begin
+    insert into DetalleCompra (codigoDetalleCompra, costoUnitario, cantidad, codigoProducto, numeroDocumento)
+    values (codDetComp, costoUnit, cant, codProd, numDoc);
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_listarDetalleCompras()
+begin 
+    select d.codigoDetalleCompra, d.costoUnitario, d.cantidad, d.codigoProducto, d.numeroDocumento
+    from DetalleCompra d;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_buscarDetalleCompraPorCodigo(in codDetComp int)
+begin
+    select d.codigoDetalleCompra, d.costoUnitario, d.cantidad, d.codigoProducto, d.numeroDocumento
+    from DetalleCompra d 
+    where d.codigoDetalleCompra = codDetComp;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_actualizarDetalleCompra(
+    in codDetComp int,
+    in costoUnit decimal(10,2),
+    in cant int,
+    in codProd varchar(15),
+    in numDoc int
+)
+begin
+    update DetalleCompra 
+    set costoUnitario = costoUnit, cantidad = cant, codigoProducto = codProd, numeroDocumento = numDoc 
+    where codigoDetalleCompra = codDetComp;
+end$$
+
+delimiter ;
+
+delimiter $$
+
+create procedure sp_eliminarDetalleCompra(in codDetComp int)
+begin
+    delete from DetalleCompra 
+    where codigoDetalleCompra = codDetComp;
+end$$
+
+delimiter ;
+

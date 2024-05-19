@@ -76,5 +76,9 @@ public class Factura {
         this.codigoCliente = codigoCliente;
     }
     
+        @Override
+    public String toString() {
+        return getNumeroFactura() + "    |   " + getTotalFactura();
+    }
     
 }
