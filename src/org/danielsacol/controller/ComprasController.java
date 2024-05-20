@@ -42,6 +42,8 @@ public class ComprasController implements Initializable {
 
     @FXML
     private Button btnHomeCompras;
+   @FXML
+    private Button btnDetalleCompra;
     @FXML
     private TableView tblCompras;
 
@@ -331,6 +333,8 @@ public class ComprasController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnHomeCompras) {
             escenarioPrincipal.menuPrincipalView();
+        } else if (event.getSource() == btnDetalleCompra){
+            escenarioPrincipal.menuDetalleCompraView();
         }
     }
 }

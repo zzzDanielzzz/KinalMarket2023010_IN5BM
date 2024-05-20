@@ -44,6 +44,7 @@ public class TipoProductoController implements Initializable {
 
     @FXML
     private TableView tblTipoDeProducto;
+    
 
     @FXML
     private TableColumn colCodigoTipoProducto;
@@ -53,6 +54,8 @@ public class TipoProductoController implements Initializable {
 
     @FXML
     private Button btnAgregar;
+    @FXML
+    private Button btnProductos;
 
     @FXML
     private ImageView imgAgregar;
@@ -287,6 +290,8 @@ public class TipoProductoController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnHomeTipoProducto) {
             escenarioPrincipal.menuPrincipalView();
+        }  else if (event.getSource() == btnProductos) {
+            escenarioPrincipal.menuProductosView();
         }
     }
 }

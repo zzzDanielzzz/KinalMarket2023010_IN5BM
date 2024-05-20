@@ -52,6 +52,10 @@ public class ProductosController implements Initializable {
     }
     @FXML
     private Button btnAgregar;
+    
+    @FXML
+    private Button btnTipoProd;
+    
     @FXML
     private Button btnHomeProductos;
 
@@ -492,6 +496,8 @@ public class ProductosController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnHomeProductos) {
             escenarioPrincipal.menuPrincipalView();
+        }  else if(event.getSource() == btnTipoProd){
+            escenarioPrincipal.menuTipoProductoView();
         }
     }
 }

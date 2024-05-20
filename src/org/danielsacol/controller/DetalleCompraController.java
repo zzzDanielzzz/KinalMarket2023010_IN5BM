@@ -46,6 +46,8 @@ public class DetalleCompraController implements Initializable {
     private ObservableList<Productos> listaProductos;
     @FXML
     private Button btnHomeDetalleCompra;
+   @FXML
+    private Button btnCompras;
     @FXML
     private Button btnAgregar;
 
@@ -436,6 +438,8 @@ public class DetalleCompraController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnHomeDetalleCompra) {
             escenarioPrincipal.menuPrincipalView();
+        } else if(event.getSource() == btnCompras){
+            escenarioPrincipal.menuComprasView();
         }
     }
 }

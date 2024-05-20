@@ -1,3 +1,4 @@
+drop database if exists DBKinalMarket;
 set global time_zone = '-6:00';
 create database DBKinalMarket;
 use DBKinalMarket;
@@ -59,9 +60,11 @@ create table Productos(
     codigoTipoProducto int,
     primary key PK_CodigoProducto(codigoProducto),
     constraint FK_Productos_Provedores foreign key Proveedores(codigoProveedor)
-		references Proveedores(codigoProveedor),
+		references Proveedores(codigoProveedor)
+        ON DELETE CASCADE,
     constraint FK_Productos_TipoProducto foreign key TipoProducto(codigoTipoProducto)
-		references TipoProducto(codigoTipoProducto)    
+		references TipoProducto(codigoTipoProducto)  
+        ON DELETE CASCADE
 );
 
 create table TelefonoProveedor(
@@ -73,6 +76,7 @@ create table TelefonoProveedor(
     primary key PK_CodigoTelefonoProveedor (codigoTelefonoProveedor),
     constraint FK_TelefonoProveedor_Proveedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor)
+        ON DELETE CASCADE
 );
 
 create table EmailProveedor(
@@ -83,6 +87,7 @@ create table EmailProveedor(
     primary key PK_CodigoEmailProveedor (codigoEmailProveedor),
     constraint FK_EmailProveedor_Proveedores foreign key Proveedores(codigoProveedor)
 		references Proveedores(codigoProveedor)
+        ON DELETE CASCADE
 );
 
 create table Empleados(
@@ -96,6 +101,7 @@ create table Empleados(
     primary key PK_CodigoEmpleado (codigoEmpleado),
     constraint FK_Empleados_CargoEmpleado foreign key CargoEmpleado(codigoCargoEmpleado)
 		references CargoEmpleado(codigoCargoEmpleado)
+        ON DELETE CASCADE
 );
 
 create table Factura(
@@ -107,9 +113,11 @@ create table Factura(
     codigoEmpleado int,
     primary key PK_NumeroFactura (numeroFactura),
     constraint FK_Factura_Clientes foreign key Clientes(codigoCliente)
-		references Clientes(codigoCliente),
+		references Clientes(codigoCliente)
+        ON DELETE CASCADE,
     constraint FK_Factura_Empleados foreign key Empleados(codigoEmpleado)
 		references Empleados(codigoEmpleado)
+        ON DELETE CASCADE
 );
 
 create table DetalleFactura(
@@ -120,9 +128,11 @@ create table DetalleFactura(
     codigoProducto varchar(15),
     primary key PK_CodigoDetalleFactura (codigoDetalleFactura),
     constraint FK_DetalleFactura_Facturas foreign key Factura(numeroFactura)
-		references Factura(numeroFactura),
+		references Factura(numeroFactura)
+        ON DELETE CASCADE,
 	constraint FK_DetalleFactura_Productos foreign key Productos(codigoProducto)
 		references Productos(codigoProducto)
+        ON DELETE CASCADE
 );
 
 create table DetalleCompra(
@@ -133,9 +143,11 @@ create table DetalleCompra(
     numeroDocumento int,
     primary key PK_CodigoDetalleCompra(codigoDetalleCompra),
     constraint FK_DetalleCompra_Productos foreign key Productos(codigoProducto)
-		references Productos(codigoProducto),
+		references Productos(codigoProducto)
+        ON DELETE CASCADE,
     constraint FK_DetalleCompra_Compras foreign key Compras(numeroDocumento)    
 		references Compras(numeroDocumento)
+        ON DELETE CASCADE
 );
 delimiter $$
 
@@ -148,7 +160,7 @@ end$$
 
 delimiter ;
 
-call sp_agregarCliente('2','78542585', 'Daniel', 'Sacol', 'San jose Pinula', '33815217', 'danieledusc@gmail.com'); 
+call sp_agregarCliente('1','78542585', 'Daniel', 'Sacol', 'San jose Pinula', '33815217', 'danieledusc@gmail.com'); 
 
 delimiter $$
 create procedure sp_listarCliente()
@@ -455,24 +467,24 @@ delimiter ;
 
 DELIMITER $$
  
-CREATE PROCEDURE sp_agregarProducto(
-    IN p_codigoProducto VARCHAR(15),
-    IN p_descripcionProducto VARCHAR(15),
-    IN p_precioUnitario DECIMAL(10,2),
-    IN p_precioDocena DECIMAL(10,2),
-    IN p_precioMayor DECIMAL(10,2),
-    IN p_imagenProducto VARCHAR(45),
-    IN p_existencia INT,
-    IN p_codigoTipoProducto INT,
-    IN p_codigoProveedor INT
+create procedure sp_agregarProducto(
+    in codProd VARCHAR(15),
+    in descripProd VARCHAR(15),
+    in precioUnit DECIMAL(10,2),
+    in precioDocen DECIMAL(10,2),
+    in precioMay DECIMAL(10,2),
+    in imagProd VARCHAR(45),
+    in exist INT,
+    in codTipoProd INT,
+    in codProv INT
 )
-BEGIN
-    INSERT INTO Productos(codigoProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, codigoTipoProducto, codigoProveedor)
-    VALUES(p_codigoProducto, p_descripcionProducto, p_precioUnitario, p_precioDocena, p_precioMayor, p_imagenProducto, p_existencia, p_codigoTipoProducto, p_codigoProveedor);
-END$$
+begin
+    insert into Productos(codigoProducto, descripcionProducto, precioUnitario, precioDocena, precioMayor, imagenProducto, existencia, codigoTipoProducto, codigoProveedor)
+    values(codProd, descripProd, precioUnit, precioDocen, precioMay, imagProd, exist, codTipoProd, codProv);
+end$$
 DELIMITER ;
  
-CALL sp_agregarProducto('P001', 'Arroz', 5.99, 68.99, 129.99, 'arroz.jpg', 100, 1, 1);
+CALL sp_agregarProducto('1', 'Arroz', 5.99, 68.99, 129.99, 'arroz.jpg', 100, 1, 1);
 
 delimiter $$
 
@@ -506,31 +518,31 @@ Delimiter ;
  
 call sp_listarProductos();
  
-DELIMITER $$
-CREATE PROCEDURE sp_actualizarProducto(
-    IN p_codigoProducto VARCHAR(15),
-    IN p_nuevaDescripcionProducto VARCHAR(15),
-    IN p_nuevoPrecioUnitario DECIMAL(10,2),
-    IN p_nuevoPrecioDocena DECIMAL(10,2),
-    IN p_nuevoPrecioMayor DECIMAL(10,2),
-    IN p_nuevaImagenProducto VARCHAR(45),
-    IN p_nuevaExistencia INT,
-    IN p_nuevoCodigoTipoProducto INT,
-    IN p_nuevoCodigoProveedor INT
+delimiter $$
+create procedure sp_actualizarproducto(
+    in codprod varchar(15),
+    in descripprod varchar(15),
+    in preciounit decimal(10,2),
+    in preciodocen decimal(10,2),
+    in preciomay decimal(10,2),
+    in imagprod varchar(45),
+    in exist int,
+    in codtipoprod int,
+    in codprov int
 )
-BEGIN
-    UPDATE Productos
-    SET descripcionProducto = p_nuevaDescripcionProducto,
-        precioUnitario = p_nuevoPrecioUnitario,
-        precioDocena = p_nuevoPrecioDocena,
-        precioMayor = p_nuevoPrecioMayor,
-        imagenProducto = p_nuevaImagenProducto,
-        existencia = p_nuevaExistencia,
-        codigoTipoProducto = p_nuevoCodigoTipoProducto,
-        codigoProveedor = p_nuevoCodigoProveedor
-    WHERE codigoProducto = p_codigoProducto;
-END$$
-DELIMITER ;
+begin
+    update productos
+    set descripcionproducto = descripprod,
+        preciounitario = preciounit,
+        preciodocena = preciodocen,
+        preciomayor = preciomay,
+        imagenproducto = imagprod,
+        existencia = exist,
+        codigotipoproducto = codtipoprod,
+        codigoproveedor = codprov
+    where codigoproducto = codprod;
+end$$
+delimiter ;
  
 
  
@@ -746,6 +758,8 @@ end$$
 
 delimiter ;
 
+CALL sp_agregarFactura(12345, 'Pagada', 500.00, '2024-05-19', 1, 1);
+
 delimiter $$
 
 create procedure sp_listarFacturas()
@@ -812,6 +826,8 @@ end$$
 
 delimiter ;
 
+CALL sp_agregarDetalleFactura(1, 10.50, 2, 12345, '1');
+
 delimiter $$
 
 create procedure sp_listarDetalleFacturas()
@@ -877,6 +893,8 @@ end$$
 
 delimiter ;
 
+CALL sp_agregarDetalleCompra(1, 15.75, 3, '1', 123456);
+
 delimiter $$
 
 create procedure sp_listarDetalleCompras()
@@ -925,3 +943,150 @@ end$$
 
 delimiter ;
 
+delimiter $$
+
+
+
+-- ---------------------------------------------------Triggers -------------------------------------------------------------------
+delimiter $$
+create trigger tr_detallefactura_after_inser after insert on detallefactura
+for each row
+begin
+    update factura
+    set totalfactura = totalfactura + new.preciounitario * new.cantidad
+    where numerofactura = new.numerofactura;
+end
+$$
+delimiter ;
+
+
+delimiter $$
+create trigger tr_detallefactura_after_update after update on detallefactura
+for each row
+begin
+    update factura
+    set totalfactura = totalfactura + (new.preciounitario * new.cantidad) - (old.preciounitario * old.cantidad)
+    where numerofactura = new.numerofactura;
+end $$
+delimiter ;
+
+
+delimiter $$
+create trigger tr_detallefactura_after_delete after delete on detallefactura
+for each row
+begin
+    update factura
+    set totalfactura = totalfactura - old.preciounitario * old.cantidad
+    where numerofactura = old.numerofactura;
+end $$
+delimiter ;
+
+
+delimiter $$
+create trigger tr_detallecompra_after_insert after insert on detallecompra
+for each row
+begin
+    update compras
+    set totaldocumento = totaldocumento + new.costounitario * new.cantidad
+    where numerodocumento = new.numerodocumento;
+end
+$$
+delimiter ;
+
+
+delimiter $$
+create trigger tr_detallecompra_after_update after update on detallecompra
+for each row
+begin
+    update compras
+    set totaldocumento = totaldocumento + (new.costounitario * new.cantidad) - (old.costounitario * old.cantidad)
+    where numerodocumento = new.numerodocumento;
+end $$
+delimiter ;
+
+
+delimiter $$
+create trigger tr_detallecompra_after_delete after delete on detallecompra
+for each row
+begin
+    update compras
+    set totaldocumento = totaldocumento - old.costounitario * old.cantidad
+    where numerodocumento = old.numerodocumento;
+end $$
+delimiter ;
+
+delimiter $$
+
+create trigger tr_detallefactura_productos_after_insert after insert on detallefactura
+for each row
+begin
+    update productos
+    set existencia = existencia - new.cantidad
+    where codigoproducto = new.codigoproducto;
+end $$
+delimiter ;
+
+delimiter $$
+
+create trigger tr_detallefactura_productos_after_delete after delete on detallefactura
+for each row
+begin
+    update productos
+    set existencia = existencia + old.cantidad
+    where codigoproducto = old.codigoproducto;
+end $$
+
+delimiter ;
+
+delimiter $$
+create trigger tr_detallefactura_productos_after_update after update on detallefactura
+for each row
+begin
+    declare resta int;
+    set resta = new.cantidad - old.cantidad;
+    
+    update productos
+    set existencia = existencia - resta
+    where codigoproducto = new.codigoproducto;
+end;
+$$
+
+delimiter ;
+
+delimiter $$
+
+create trigger tr_detallecompras_after_insert after insert on detallecompra
+for each row
+begin
+    update productos
+    set existencia = existencia - new.cantidad
+    where codigoproducto = new.codigoproducto;
+end $$
+delimiter ;
+
+delimiter $$
+
+create trigger tr_detallecompras_after_delete after delete on detallecompra
+for each row
+begin
+    update productos
+    set existencia = existencia + old.cantidad
+    where codigoproducto = old.codigoproducto;
+end $$
+
+delimiter ;
+
+delimiter $$
+create trigger tr_detallecompras_after_update after update on detallecompra
+for each row
+begin
+    declare resta int;
+    set resta = new.cantidad - old.cantidad;
+    
+    update productos
+    set existencia = existencia - resta
+    where codigoproducto = new.codigoproducto;
+end;
+$$
+
+delimiter ;

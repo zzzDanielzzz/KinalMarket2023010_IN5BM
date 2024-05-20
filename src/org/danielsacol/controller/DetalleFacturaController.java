@@ -46,6 +46,8 @@ public class DetalleFacturaController implements Initializable {
     private ObservableList<Productos> listaProductos;
     @FXML
     private Button btnHomeDetalleFactura;
+   @FXML
+    private Button btnFacturas;
     @FXML
     private Button btnAgregar;
 
@@ -440,6 +442,8 @@ public class DetalleFacturaController implements Initializable {
     public void handleButtonAction(ActionEvent event) {
         if (event.getSource() == btnHomeDetalleFactura) {
             escenarioPrincipal.menuPrincipalView();
+        } else if (event.getSource() == btnFacturas){
+            escenarioPrincipal.menuFacturaView();
         }
     }
 }
