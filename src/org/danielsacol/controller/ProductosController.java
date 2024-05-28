@@ -342,11 +342,11 @@ public class ProductosController implements Initializable {
         registro.setCodigoProveedor(((Proveedores) combCodProveedor.getSelectionModel().getSelectedItem()).getCodigoProveedor());
         registro.setCodigoTipoProducto((((TipoProducto) combCodProducto.getSelectionModel().getSelectedItem()).getCodigoTipoProducto()));
         registro.setDescripcionProducto(txtDescProd.getText());
-        registro.setPrecioDocena(Double.parseDouble(txtPrecDoc.getText()));
-        registro.setPrecioMayor(Double.parseDouble(txtPrecMay.getText()));
+        registro.setPrecioDocena(Double.parseDouble("0.00"));
+        registro.setPrecioMayor(Double.parseDouble("0.00"));
         registro.setExistencia(Integer.parseInt(txtExist.getText()));
         registro.setImagenProducto(txtImgProd.getText());
-        registro.setPrecioUnitario(Double.parseDouble(txtPrecUnit.getText()));
+        registro.setPrecioUnitario(Double.parseDouble("0.00"));
 
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{Call sp_agregarProducto(?,?,?,?,?,?,?,?,?)}");

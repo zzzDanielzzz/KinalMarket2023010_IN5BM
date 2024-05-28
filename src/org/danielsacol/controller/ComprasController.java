@@ -175,7 +175,7 @@ public class ComprasController implements Initializable {
         registro.setNumeroDocumento(Integer.parseInt(txtNumeroDocumento.getText()));
         registro.setFechaDocumento(fechaFormateada);
         registro.setDescripcion(txtDescripcion.getText());
-        registro.setTotalDocumento(Double.parseDouble(txtTotalDocumento.getText()));
+        registro.setTotalDocumento(Double.parseDouble("0.00"));
         try {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarCompra(?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getNumeroDocumento());

@@ -273,7 +273,7 @@ public class DetalleFacturaController implements Initializable {
         registro.setNumeroFactura(((Factura) cmbNumFactura.getSelectionModel().getSelectedItem()).getNumeroFactura());
         registro.setCodigoProducto(((Productos) cmbCodProducto.getSelectionModel().getSelectedItem()).getCodigoProducto());
         registro.setCodigoDetalleFactura(Integer.parseInt(txtCodDetalleFactura.getText()));
-        registro.setPrecioUnitario(Double.parseDouble(txtPrecioUnit.getText()));
+        registro.setPrecioUnitario(Double.parseDouble("0.00"));
         registro.setCantidad(Integer.parseInt(txtCantidad.getText()));
 
         try {

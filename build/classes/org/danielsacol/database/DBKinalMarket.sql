@@ -1090,3 +1090,28 @@ end;
 $$
 
 delimiter ;
+
+DELIMITER $$
+ 
+CREATE TRIGGER AfterInsertDetalleCompra
+AFTER INSERT ON DetalleCompra
+FOR EACH ROW
+BEGIN
+    DECLARE precioProveedor DECIMAL(10,2);
+    DECLARE precioDocena DECIMAL(10,2);
+    DECLARE precioMayor DECIMAL(10,2);
+ 
+    -- Calcular precios
+    SET precioProveedor = NEW.costoUnitario * 1.40;
+    SET precioDocena = precioProveedor * 1.35;
+    SET precioMayor = precioProveedor * 1.25;
+ 
+    -- Actualizar productos con los precios calculados
+    UPDATE Productos
+    SET precioUnitario = precioProveedor,
+        precioDocena = precioDocena,
+        precioMayor = precioMayor
+    WHERE codigoProducto = NEW.codigoProducto;
+END $$
+ 
+DELIMITER ;

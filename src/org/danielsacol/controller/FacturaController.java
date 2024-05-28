@@ -280,7 +280,7 @@ public class FacturaController implements Initializable {
         registro.setCodigoCliente(((Clientes) cmbCodCliente.getSelectionModel().getSelectedItem()).getCodigoCliente());
         registro.setCodigoEmpleado(((Empleados) cmbCodEmpleado.getSelectionModel().getSelectedItem()).getCodigoEmpleado());
         registro.setEstado(txtEstado.getText());
-        registro.setTotalFactura(Double.parseDouble(txtTotalFactura.getText()));
+        registro.setTotalFactura(Double.parseDouble("0.00"));
         registro.setFechaFactura(txtFecha.getText());
 
         try {
