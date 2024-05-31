@@ -241,6 +241,7 @@ public class DetalleFacturaController implements Initializable {
             case NINGUNO:
                 limpiarControles();
                 activarControles();
+                txtPrecioUnit.setDisable(true);
                 btnAgregar.setText("Guardar");
                 btnEliminar.setText("Cancelar");
                 btnEditar.setDisable(true);

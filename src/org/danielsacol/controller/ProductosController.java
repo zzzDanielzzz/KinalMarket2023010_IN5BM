@@ -310,6 +310,9 @@ public class ProductosController implements Initializable {
             case NINGUNO:
                 limpiarControles();
                 activarControles();
+                txtPrecUnit.setDisable(true);
+                txtPrecDoc.setDisable(true);
+                txtPrecMay.setDisable(true);
                 btnAgregar.setText("Guardar");
                 btnEliminar.setText("Cancelar");
                 btnEditar.setDisable(true);
@@ -344,7 +347,7 @@ public class ProductosController implements Initializable {
         registro.setDescripcionProducto(txtDescProd.getText());
         registro.setPrecioDocena(Double.parseDouble("0.00"));
         registro.setPrecioMayor(Double.parseDouble("0.00"));
-        registro.setExistencia(Integer.parseInt(txtExist.getText()));
+        registro.setExistencia(Integer.parseInt("0"));
         registro.setImagenProducto(txtImgProd.getText());
         registro.setPrecioUnitario(Double.parseDouble("0.00"));
 

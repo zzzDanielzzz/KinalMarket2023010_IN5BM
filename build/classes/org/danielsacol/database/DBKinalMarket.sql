@@ -1059,7 +1059,7 @@ create trigger tr_detallecompras_after_insert after insert on detallecompra
 for each row
 begin
     update productos
-    set existencia = existencia - new.cantidad
+    set existencia = existencia + new.cantidad
     where codigoproducto = new.codigoproducto;
 end $$
 delimiter ;
@@ -1070,7 +1070,7 @@ create trigger tr_detallecompras_after_delete after delete on detallecompra
 for each row
 begin
     update productos
-    set existencia = existencia + old.cantidad
+    set existencia = existencia - old.cantidad
     where codigoproducto = old.codigoproducto;
 end $$
 
@@ -1112,6 +1112,9 @@ BEGIN
         precioDocena = precioDocena,
         precioMayor = precioMayor
     WHERE codigoProducto = NEW.codigoProducto;
+    
+    
 END $$
  
 DELIMITER ;
+
