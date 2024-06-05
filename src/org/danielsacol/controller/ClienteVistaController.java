@@ -5,6 +5,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javax.swing.JOptionPane;
 import org.danielsacol.bean.Clientes;
 import org.danielsacol.db.Conexion;
+import org.danielsacol.report.GenerarReportes;
 import org.danielsacol.system.Main;
 
 public class ClienteVistaController implements Initializable {
@@ -195,8 +198,8 @@ public class ClienteVistaController implements Initializable {
             PreparedStatement procedimiento = Conexion.getInstance().getConexion().prepareCall("{call sp_agregarCliente(?, ?, ?, ?, ?, ?, ?)}");
             procedimiento.setInt(1, registro.getCodigoCliente());
             procedimiento.setString(2, registro.getNITCliente());
-            procedimiento.setString(3, registro.getApellidosCliente());
-            procedimiento.setString(4, registro.getNombreCliente());
+            procedimiento.setString(3, registro.getNombreCliente());
+            procedimiento.setString(4, registro.getApellidosCliente());
             procedimiento.setString(5, registro.getDireccionCliente());
             procedimiento.setString(6, registro.getTelefonoCliente());
             procedimiento.setString(7, registro.getCorreoCliente());
@@ -305,6 +308,9 @@ public class ClienteVistaController implements Initializable {
 
     public void reporte() {
         switch (tipoDeOperaciones) {
+            case NINGUNO:
+                imprimirReporte();
+                break;
             case ACTUALIZAR:
                 btnReportes.setText("Reporte");
                 btnEditar.setText("Editar");
@@ -317,9 +323,15 @@ public class ClienteVistaController implements Initializable {
                 limpiarControles();
                 tipoDeOperaciones = operaciones.NINGUNO;
                 cargarDatos();
-            case NINGUNO:
                 break;
         }
+    }
+    
+    public void imprimirReporte(){
+        Map parametros = new HashMap();
+        parametros.put("codigoCliente", null);
+        GenerarReportes.mostrarReportes("ReporteClientes.jasper", "Reporte de Clientes", parametros);
+        
     }
 
     public void desactivarControles() {

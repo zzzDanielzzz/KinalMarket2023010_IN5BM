@@ -1084,7 +1084,7 @@ begin
     set resta = new.cantidad - old.cantidad;
     
     update productos
-    set existencia = existencia - resta
+    set existencia = existencia + resta
     where codigoproducto = new.codigoproducto;
 end;
 $$
@@ -1118,3 +1118,15 @@ END $$
  
 DELIMITER ;
 
+delimiter $$
+create trigger tr_detalleFactura_before_insert before insert on DetalleFactura
+for each row
+begin
+	declare precioUnit decimal(10,2);
+    
+    select p.precioUnitario into precioUnit from Productos p
+    where codigoProducto = NEW.codigoProducto;
+
+    SET NEW.precioUnitario = precioUnit;
+end $$
+delimiter ;

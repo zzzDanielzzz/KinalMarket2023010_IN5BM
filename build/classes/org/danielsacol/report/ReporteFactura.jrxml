@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteFactura" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5e4dceaa-9d15-496f-a284-c77e228c6db2">
+	<property name="ireport.zoom" value="0.751314800901578"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT f.numeroFactura, f.totalFactura, df.precioUnitario, df.cantidad
+FROM Factura f
+JOIN DetalleFactura df ON f.numeroFactura = df.numeroFactura]]>
+	</queryString>
+	<field name="numeroFactura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalFactura" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioUnitario" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="802" splitType="Stretch">
+			<image>
+				<reportElement x="6" y="11" width="543" height="791" uuid="f5a75034-d6d1-49a7-bf61-0ba6220b7ce3"/>
+				<imageExpression><![CDATA["C:\\Users\\Informatica\\Desktop\\RepoKinalMarket\\KinalMarket2023010_IN5BM\\src\\org\\danielsacol\\images\\FondoFactura.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="75" y="1" width="100" height="20" uuid="31c31d6d-8566-4132-bb56-2e2f349b63ec"/>
+				<text><![CDATA[numeroFactura]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="232" y="1" width="100" height="20" uuid="be7d8f28-f770-406b-b75c-80bb37899c5e"/>
+				<text><![CDATA[precioUnitario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="374" y="1" width="100" height="20" uuid="78840099-4496-471d-b6d7-6e62715b9f21"/>
+				<text><![CDATA[cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="503" y="1" width="100" height="20" uuid="e524bea5-f297-4242-96f8-e6f0c6d4a564"/>
+				<text><![CDATA[totalFactura]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="75" y="73" width="100" height="20" uuid="962ec088-abfe-45fe-a7fd-ab5342e5df42"/>
+				<textFieldExpression><![CDATA[$F{numeroFactura}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="232" y="53" width="100" height="20" uuid="58ec0e9e-9d73-45ad-a8e1-e92e5ddb78eb"/>
+				<textFieldExpression><![CDATA[$F{precioUnitario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="46" width="100" height="20" uuid="b82be9c4-224d-498d-95db-616a42cb6dd9"/>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="503" y="54" width="100" height="20" uuid="99e5c349-9500-49c6-9d86-aaca7a2a4522"/>
+				<textFieldExpression><![CDATA[$F{totalFactura}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

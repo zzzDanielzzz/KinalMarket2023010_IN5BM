@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteClientes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c12eb9d-4b38-4763-8ee9-9602a8cd7514">
+	<property name="ireport.zoom" value="1.2100000000000035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+    pr.codigoProveedor,
+    pr.nombresProveedor,
+    pr.apellidosProveedor,
+    pr.direccionProveedor,
+    p.codigoProducto,
+    p.descripcionProducto,
+    p.precioUnitario,
+    tp.numeroPrincipal AS telefonoPrincipal,
+    ep.emailProveedor AS correoElectronico
+FROM Proveedores pr
+JOIN Productos p ON pr.codigoProveedor = p.codigoProveedor
+LEFT JOIN TelefonoProveedor tp ON pr.codigoProveedor = tp.codigoProveedor
+LEFT JOIN EmailProveedor ep ON pr.codigoProveedor = ep.codigoProveedor;]]>
+	</queryString>
+	<field name="codigoProveedor" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombresProveedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="apellidosProveedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="direccionProveedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcionProducto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="precioUnitario" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefonoPrincipal" class="java.lang.String"/>
+	<field name="correoElectronico" class="java.lang.String"/>
+	<background>
+		<band height="802">
+			<image>
+				<reportElement x="0" y="0" width="555" height="802" uuid="224c93c1-44f9-4d5b-a46c-0aa1b83c2872"/>
+				<imageExpression><![CDATA["C:\\Users\\Informatica\\Desktop\\RepoKinalMarket\\KinalMarket2023010_IN5BM\\src\\org\\danielsacol\\images\\FondoReportes.png"]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<title>
+		<band height="191">
+			<staticText>
+				<reportElement x="167" y="143" width="223" height="48" uuid="64abea64-4875-4505-a3d5-a7e0c634b9a1"/>
+				<textElement>
+					<font size="36" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedores]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="47">
+			<line>
+				<reportElement x="0" y="36" width="555" height="1" forecolor="#666666" uuid="2daf5c05-89df-458a-b185-6850c0f24acb"/>
+			</line>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" forecolor="#666666" uuid="5063ffd2-1532-4813-b5b2-d9be0287bb02"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="1" width="100" height="20" uuid="37512c3e-3b40-4a4b-91bb-7afb5638c246"/>
+				<text><![CDATA[codigoProveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="127" y="1" width="100" height="20" uuid="8ef1b843-5a9d-46b0-9884-c24eb12bcd04"/>
+				<text><![CDATA[nombresProveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="1" width="100" height="20" uuid="6f4dd8a8-9431-43bc-9192-24ee1333fcb6"/>
+				<text><![CDATA[descripcionProducto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="1" width="100" height="20" uuid="18525711-5183-4aed-a3b1-388bd09ee975"/>
+				<text><![CDATA[telefonoPrincipal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="1" width="100" height="20" uuid="9ee394e4-818c-4381-89a6-d0ef927e34f3"/>
+				<text><![CDATA[correoElectronico]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32">
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" forecolor="#00CCCC" uuid="b6e36ffa-4060-4d07-a5e5-e2d7d51eb6c3"/>
+			</line>
+			<line>
+				<reportElement x="99" y="-11" width="1" height="43" forecolor="#00CCCC" uuid="36c0bd62-fa92-4cc9-bf2e-9fe0a4a32306"/>
+			</line>
+			<line>
+				<reportElement x="218" y="-10" width="1" height="42" forecolor="#00CCCC" uuid="b64be119-54d8-4942-a44c-1f25fe1295fc"/>
+			</line>
+			<line>
+				<reportElement x="336" y="-11" width="1" height="43" forecolor="#00CCCC" uuid="166a0264-c50a-44d1-92cf-1cfba59aeb14"/>
+			</line>
+			<line>
+				<reportElement x="446" y="-10" width="1" height="42" forecolor="#00CCCC" uuid="f5dbfefc-44e0-4980-89c1-a99a8e05c7ac"/>
+			</line>
+			<textField>
+				<reportElement x="-1" y="0" width="100" height="20" uuid="d6143ecd-0cd0-419b-94e2-2e5cdb781f71"/>
+				<textFieldExpression><![CDATA[$F{codigoProveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="0" width="100" height="20" uuid="05d34f90-fcdf-4cbb-b1f2-df67b5019fbb"/>
+				<textFieldExpression><![CDATA[$F{descripcionProducto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="0" width="100" height="20" uuid="24b435f9-2c34-4943-9ec0-3473d321e94a"/>
+				<textFieldExpression><![CDATA[$F{telefonoPrincipal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="109" height="20" uuid="91cdb0bd-b6e1-4962-beb1-7098b1745987"/>
+				<textFieldExpression><![CDATA[$F{nombresProveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="0" width="100" height="20" uuid="75b846e2-13c9-46b8-804b-671bbff94b19"/>
+				<textFieldExpression><![CDATA[$F{correoElectronico}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="0" width="515" height="13" backcolor="#E6E6E6" uuid="46c4203c-b444-4a89-bac4-dee85422c6d2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="0" width="40" height="13" backcolor="#E6E6E6" uuid="c68ddbea-95a4-4d76-9575-49e047f06c3a"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="0" width="100" height="13" uuid="776c7761-18d9-4859-a467-8fdfb95a3212"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

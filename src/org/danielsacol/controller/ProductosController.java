@@ -5,6 +5,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 import javafx.collections.FXCollections;
@@ -25,6 +27,7 @@ import org.danielsacol.bean.Productos;
 import org.danielsacol.bean.Proveedores;
 import org.danielsacol.bean.TipoProducto;
 import org.danielsacol.db.Conexion;
+import org.danielsacol.report.GenerarReportes;
 import org.danielsacol.system.Main;
 
 /**
@@ -479,6 +482,9 @@ public class ProductosController implements Initializable {
 
     public void reporte() {
         switch (tipoDeOperaciones) {
+             case NINGUNO:
+                imprimirReporte();
+                break;
             case ACTUALIZAR:
                 btnReportes.setText("Reporte");
                 btnEditar.setText("Editar");
@@ -490,9 +496,14 @@ public class ProductosController implements Initializable {
                 limpiarControles();
                 tipoDeOperaciones = ProductosController.operaciones.NINGUNO;
                 cargarDatos();
-            case NINGUNO:
-                break;
         }
+    }
+    
+    public void imprimirReporte() {
+        Map parametros = new HashMap();
+        parametros.put("codigoProducto", null);
+        GenerarReportes.mostrarReportes("ReporteProductos.jasper", "Reporte de Productos", parametros);
+
     }
 
     @FXML

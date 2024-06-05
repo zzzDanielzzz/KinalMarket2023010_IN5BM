@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javax.swing.JOptionPane;
 import org.danielsacol.bean.Proveedores;
 import org.danielsacol.db.Conexion;
+import org.danielsacol.report.GenerarReportes;
 import org.danielsacol.system.Main;
 
 /**
@@ -331,6 +334,9 @@ public class ProveedorController implements Initializable {
 
     public void reporte() {
         switch (tipoDeOperaciones) {
+            case NINGUNO:
+                imprimirReporte();
+                break;
             case ACTUALIZAR:
                 btnReporteProveedor.setText("Reporte");
                 btnEditarProveedor.setText("Editar");
@@ -344,9 +350,14 @@ public class ProveedorController implements Initializable {
                 tipoDeOperaciones = operaciones.NINGUNO;
                 cargarDatos();
                 break;
-            case NINGUNO:
-                break;
         }
+    }
+    
+        public void imprimirReporte(){
+        Map parametros = new HashMap();
+        parametros.put("codigoProveedor", null);
+        GenerarReportes.mostrarReportes("ReporteProveedores.jasper", "Reporte de proveedores", parametros);
+        
     }
 
     public void desactivarControles() {
