@@ -8,6 +8,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +29,7 @@ import org.danielsacol.bean.Clientes;
 import org.danielsacol.bean.Empleados;
 import org.danielsacol.bean.Factura;
 import org.danielsacol.db.Conexion;
+import org.danielsacol.report.GenerarReportes;
 import org.danielsacol.system.Main;
 
 /**
@@ -402,6 +405,9 @@ public class FacturaController implements Initializable {
 
     public void reporte() {
         switch (tipoDeOperaciones) {
+            case NINGUNO:
+                 imprimirReporte();
+                break;
             case ACTUALIZAR:
                 btnReportes.setText("Reporte");
                 btnEditar.setText("Editar");
@@ -413,11 +419,17 @@ public class FacturaController implements Initializable {
                 limpiarControles();
                 tipoDeOperaciones = FacturaController.operaciones.NINGUNO;
                 cargarDatos();
-            case NINGUNO:
                 break;
         }
     }
 
+    public void imprimirReporte(){
+        Map parametros = new HashMap();
+        int factID = Integer.valueOf(((Factura)tblFactura.getSelectionModel().getSelectedItem()).getNumeroFactura());
+        parametros.put(factID, factID);
+        GenerarReportes.mostrarReportes("ReporteFactura.jasper", "Reporte Factura", parametros);
+        
+    }
     public void desactivarControles() {
         txtNumFactura.setDisable(true);
         txtEstado.setDisable(true);
