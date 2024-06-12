@@ -426,7 +426,7 @@ public class FacturaController implements Initializable {
     public void imprimirReporte(){
         Map parametros = new HashMap();
         int factID = Integer.valueOf(((Factura)tblFactura.getSelectionModel().getSelectedItem()).getNumeroFactura());
-        parametros.put(factID, factID);
+        parametros.put("factID", factID);
         GenerarReportes.mostrarReportes("ReporteFactura.jasper", "Reporte Factura", parametros);
         
     }

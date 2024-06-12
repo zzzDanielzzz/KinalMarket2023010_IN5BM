@@ -46,9 +46,9 @@
 			<staticText>
 				<reportElement x="180" y="143" width="184" height="48" uuid="64abea64-4875-4505-a3d5-a7e0c634b9a1"/>
 				<textElement>
-					<font size="36" isBold="true"/>
+					<font fontName="Berlin Sans FB Demi" size="36" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Productoss]]></text>
+				<text><![CDATA[Productos]]></text>
 			</staticText>
 		</band>
 	</title>

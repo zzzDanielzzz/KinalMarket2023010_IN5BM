@@ -161,6 +161,10 @@ end$$
 delimiter ;
 
 call sp_agregarCliente('1','78542585', 'Daniel', 'Sacol', 'San jose Pinula', '33815217', 'danieledusc@gmail.com'); 
+call sp_agregarCliente('2', '96587321', 'Maria', 'Lopez', 'Guatemala City', '12345678', 'maria.lopez@example.com');
+call sp_agregarCliente('3', '78451236', 'Carlos', 'Martinez', 'Mixco', '87654321', 'carlos.martinez@example.com');
+call sp_agregarCliente('4', '87542369', 'Ana', 'Fernandez', 'Villa Nueva', '56781234', 'ana.fernandez@example.com');
+call sp_agregarCliente('5', '96548752', 'Luis', 'Garcia', 'Santa Catarina Pinula', '43218765', 'luis.garcia@example.com');
 
 delimiter $$
 create procedure sp_listarCliente()
@@ -241,7 +245,12 @@ begin
 END$$
 DELIMITER ;
 
-CALL sp_agregarProveedor(1, '1234567890', 'Proveedor Ejemplo', 'Apellidos Ejemplo', 'Dirección Ejemplo', 'Razón Social Ejemplo', 'Contacto Ejemplo', 'www.proveedorejemplo.com');
+CALL sp_agregarProveedor(1, '9876543210', 'María', 'Pérez', 'Avenida Reforma 123, Zona 9', 'Distribuidora Central S.A.', 'Contacto Ejemplo', 'www.distribuidoracentral.com');
+CALL sp_agregarProveedor(2, '1029384756', 'Carlos', 'Martinez', 'Calle 7, Zona 1', 'Tech Supplies Ltda.', 'Contacto Ejemplo', 'www.techsupplies.com');
+CALL sp_agregarProveedor(3, '5647382910', 'Laura', 'Fernández', 'Km 15.5 Carretera a El Salvador', 'Alimentos Frescos S.A.', 'Contacto Ejemplo', 'www.alimentosfrescos.com');
+CALL sp_agregarProveedor(4, '4738291045', 'Juan', 'Lopez', 'Boulevard Los Próceres 200', 'Construmateriales S.A.', 'Contacto Ejemplo', 'www.construmateriales.com');
+CALL sp_agregarProveedor(5, '1827364590', 'Ana', 'Mendoza', 'Calle Real 45, Zona 10', 'Medicamentos y Salud S.A.', 'Contacto Ejemplo', 'www.medicamentossalud.com');
+
 delimiter $$
 create procedure sp_listarProveedor()
 begin 
@@ -486,6 +495,7 @@ DELIMITER ;
  
 CALL sp_agregarProducto('1', 'Arroz', 5.99, 68.99, 129.99, 'arroz.jpg', 100, 1, 1);
 
+
 delimiter $$
 
 create procedure sp_buscarProductoPorCodigo(in codProd varchar(15))
@@ -568,7 +578,13 @@ end$$
 
 delimiter ;
 
-call sp_agregarTelefonoProveedor(1, '5165', '5165', 'sdfg', 1);
+call sp_agregarTelefonoProveedor(1, '51651452', '51652145', 'sdfg', 1);
+CALL sp_agregarTelefonoProveedor(2, '12341452', '56784578', 'Número principal de oficina', 2);
+CALL sp_agregarTelefonoProveedor(3, '23454523', '67894578', 'Número de contacto móvil', 3);
+CALL sp_agregarTelefonoProveedor(4, '34561236', '78904578', 'Fax de la empresa', 4);
+CALL sp_agregarTelefonoProveedor(5, '45673225', '89011423', 'Número de contacto personal', 5);
+
+
 
 delimiter $$
 
@@ -621,6 +637,12 @@ begin
 end$$
 
 delimiter ;
+
+CALL sp_agregarEmailProveedor(1, 'contacto@distribuidoracentral.com', 'Email principal de contacto', 1);
+CALL sp_agregarEmailProveedor(2, 'ventas@techsupplies.com', 'Email para consultas de ventas', 2);
+CALL sp_agregarEmailProveedor(3, 'soporte@alimentosfrescos.com', 'Email para soporte técnico', 3);
+CALL sp_agregarEmailProveedor(4, 'info@construmateriales.com', 'Email de información general', 4);
+CALL sp_agregarEmailProveedor(5, 'contacto@medicamentossalud.com', 'Email de contacto principal', 5);
 
 delimiter $$
 
@@ -1130,3 +1152,9 @@ begin
     SET NEW.precioUnitario = precioUnit;
 end $$
 delimiter ;
+
+select * from DetalleFactura
+	join Factura on DetalleFactura.numeroFactura = Factura.numeroFactura
+    join Clientes on Factura.codigoCliente = Clientes.codigoCliente
+    join Productos on DetalleFactura.codigoProducto = Productos.codigoProducto
+    where Factura.numeroFactura = 2 ;

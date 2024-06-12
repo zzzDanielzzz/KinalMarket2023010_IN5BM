@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteClientes" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c12eb9d-4b38-4763-8ee9-9602a8cd7514">
-	<property name="ireport.zoom" value="2.3579476910000094"/>
-	<property name="ireport.x" value="95"/>
-	<property name="ireport.y" value="350"/>
+	<property name="ireport.zoom" value="1.4641000000000062"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[SELECT
     pr.codigoProveedor,
@@ -55,7 +55,7 @@ LEFT JOIN EmailProveedor ep ON pr.codigoProveedor = ep.codigoProveedor;]]>
 			<staticText>
 				<reportElement x="167" y="143" width="223" height="48" uuid="64abea64-4875-4505-a3d5-a7e0c634b9a1"/>
 				<textElement>
-					<font size="36" isBold="true"/>
+					<font fontName="Berlin Sans FB Demi" size="36" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Proveedores]]></text>
 			</staticText>
@@ -70,28 +70,28 @@ LEFT JOIN EmailProveedor ep ON pr.codigoProveedor = ep.codigoProveedor;]]>
 				<reportElement x="0" y="19" width="555" height="1" forecolor="#666666" uuid="5063ffd2-1532-4813-b5b2-d9be0287bb02"/>
 			</line>
 			<staticText>
-				<reportElement x="4" y="20" width="100" height="20" uuid="37512c3e-3b40-4a4b-91bb-7afb5638c246"/>
+				<reportElement x="29" y="20" width="47" height="20" uuid="37512c3e-3b40-4a4b-91bb-7afb5638c246"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Codigo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="104" y="20" width="100" height="20" uuid="8ef1b843-5a9d-46b0-9884-c24eb12bcd04"/>
+				<reportElement x="133" y="21" width="51" height="20" uuid="8ef1b843-5a9d-46b0-9884-c24eb12bcd04"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="222" y="21" width="100" height="20" uuid="6f4dd8a8-9431-43bc-9192-24ee1333fcb6"/>
+				<reportElement x="238" y="21" width="62" height="20" uuid="6f4dd8a8-9431-43bc-9192-24ee1333fcb6"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Productos]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="337" y="21" width="100" height="20" uuid="18525711-5183-4aed-a3b1-388bd09ee975"/>
+				<reportElement x="326" y="21" width="51" height="20" uuid="18525711-5183-4aed-a3b1-388bd09ee975"/>
 				<textElement>
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -118,10 +118,10 @@ LEFT JOIN EmailProveedor ep ON pr.codigoProveedor = ep.codigoProveedor;]]>
 				<reportElement x="218" y="-10" width="1" height="42" forecolor="#00CCCC" uuid="b64be119-54d8-4942-a44c-1f25fe1295fc"/>
 			</line>
 			<line>
-				<reportElement x="336" y="-11" width="1" height="43" forecolor="#00CCCC" uuid="166a0264-c50a-44d1-92cf-1cfba59aeb14"/>
+				<reportElement x="313" y="-11" width="1" height="43" forecolor="#00CCCC" uuid="166a0264-c50a-44d1-92cf-1cfba59aeb14"/>
 			</line>
 			<line>
-				<reportElement x="442" y="-10" width="1" height="42" forecolor="#00CCCC" uuid="f5dbfefc-44e0-4980-89c1-a99a8e05c7ac"/>
+				<reportElement x="387" y="-10" width="1" height="42" forecolor="#00CCCC" uuid="f5dbfefc-44e0-4980-89c1-a99a8e05c7ac"/>
 			</line>
 			<textField>
 				<reportElement x="4" y="0" width="57" height="20" uuid="d6143ecd-0cd0-419b-94e2-2e5cdb781f71"/>
@@ -132,7 +132,7 @@ LEFT JOIN EmailProveedor ep ON pr.codigoProveedor = ep.codigoProveedor;]]>
 				<textFieldExpression><![CDATA[$F{descripcionProducto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="346" y="0" width="100" height="20" uuid="24b435f9-2c34-4943-9ec0-3473d321e94a"/>
+				<reportElement x="317" y="0" width="73" height="20" uuid="24b435f9-2c34-4943-9ec0-3473d321e94a"/>
 				<textFieldExpression><![CDATA[$F{telefonoPrincipal}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -140,7 +140,7 @@ LEFT JOIN EmailProveedor ep ON pr.codigoProveedor = ep.codigoProveedor;]]>
 				<textFieldExpression><![CDATA[$F{nombresProveedor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="447" y="0" width="100" height="20" uuid="75b846e2-13c9-46b8-804b-671bbff94b19"/>
+				<reportElement x="391" y="0" width="180" height="20" uuid="75b846e2-13c9-46b8-804b-671bbff94b19"/>
 				<textFieldExpression><![CDATA[$F{correoElectronico}]]></textFieldExpression>
 			</textField>
 		</band>
